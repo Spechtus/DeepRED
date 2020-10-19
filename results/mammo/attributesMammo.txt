@@ -1,0 +1,22 @@
+x1	'BI-RADSassessment=0'
+x2	'BI-RADSassessment=1'
+x3	'BI-RADSassessment=2'
+x4	'BI-RADSassessment=3'
+x5	'BI-RADSassessment=4'
+x6	'BI-RADSassessment=5'
+x7	'BI-RADSassessment=6'
+x8	Age
+x9	Shape=1
+x10	Shape=2
+x11	Shape=3
+x12	Shape=4
+x13	Margin=1
+x14	Margin=2
+x15	Margin=3
+x16	Margin=4
+x17	Margin=5
+x18	Density=1
+x19	Density=2
+x20	Density=3
+x21	Density=4
+	Severity {0,1}

@@ -1,0 +1,2 @@
+model_checkpoint_path: "nn,10,5hidden,tanh,art1,70BNN.ckpt"
+all_model_checkpoint_paths: "nn,10,5hidden,tanh,art1,70BNN.ckpt"

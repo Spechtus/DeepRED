@@ -1,0 +1,310 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 23 files
+Detected 5 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: DeepRED/deep_nn_execute_stored.py
+--------------------------------------------------------------------------------
+DeepRED/deep_nn_execute_stored.py:100:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+File: DeepRED/deep_nn_train.py
+--------------------------------------------------------------------------------
+DeepRED/deep_nn_train.py:221:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+DeepRED/deep_nn_train.py:366:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+DeepRED/deep_nn_train.py:841:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+DeepRED/deep_nn_train.py:1015:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: 'DeepRED/'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/activation_clustering.py'
+ outputting to 'DeepRED_v2/activation_clustering.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/obj_data_set.py'
+ outputting to 'DeepRED_v2/obj_data_set.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/decision_tree_induction.py'
+ outputting to 'DeepRED_v2/decision_tree_induction.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/csvImporter.py'
+ outputting to 'DeepRED_v2/csvImporter.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/printer.py'
+ outputting to 'DeepRED_v2/printer.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/replacement.py'
+ outputting to 'DeepRED_v2/replacement.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/decision_tree.py'
+ outputting to 'DeepRED_v2/decision_tree.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/pruning.py'
+ outputting to 'DeepRED_v2/pruning.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/deep_nn_execute_stored.py'
+ outputting to 'DeepRED_v2/deep_nn_execute_stored.py'
+--------------------------------------------------------------------------------
+
+13:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+18:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+38:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+39:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+40:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+41:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+78:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+78:24: INFO: Added keywords to args of function 'tf.nn.softmax_cross_entropy_with_logits'
+78:24: INFO: Removed argument _sentinel for function tf.nn.softmax_cross_entropy_with_logits
+78:24: INFO: Changing labels arg of tf.nn.softmax_cross_entropy_with_logits to tf.stop_gradient(labels). Please check this transformation.
+
+80:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+80:24: INFO: Added keywords to args of function 'tf.nn.softmax_cross_entropy_with_logits'
+80:24: INFO: Removed argument _sentinel for function tf.nn.softmax_cross_entropy_with_logits
+80:24: INFO: Changing labels arg of tf.nn.softmax_cross_entropy_with_logits to tf.stop_gradient(labels). Please check this transformation.
+
+82:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+84:8: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+85:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+99:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+100:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/discretization.py'
+ outputting to 'DeepRED_v2/discretization.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/split_determinator.py'
+ outputting to 'DeepRED_v2/split_determinator.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/evaluation_formulas.py'
+ outputting to 'DeepRED_v2/evaluation_formulas.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/main.py'
+ outputting to 'DeepRED_v2/main.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/arffLoader.py'
+ outputting to 'DeepRED_v2/arffLoader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/ruleExtractionPickle.py'
+ outputting to 'DeepRED_v2/ruleExtractionPickle.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/deep_nn_keep_training_polarize.py'
+ outputting to 'DeepRED_v2/deep_nn_keep_training_polarize.py'
+--------------------------------------------------------------------------------
+
+4:0: INFO: Not upgrading symbols because `tensorflow.compat.v1` was directly imported as `tf`.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/showIndexes.py'
+ outputting to 'DeepRED_v2/showIndexes.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/load_restore.py'
+ outputting to 'DeepRED_v2/load_restore.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/simplification.py'
+ outputting to 'DeepRED_v2/simplification.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/deep_nn_train.py'
+ outputting to 'DeepRED_v2/deep_nn_train.py'
+--------------------------------------------------------------------------------
+
+19:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+24:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+115:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+116:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+118:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+119:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+121:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+158:34: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+161:34: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+174:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+174:24: INFO: Added keywords to args of function 'tf.nn.softmax_cross_entropy_with_logits'
+174:24: INFO: Removed argument _sentinel for function tf.nn.softmax_cross_entropy_with_logits
+174:24: INFO: Changing labels arg of tf.nn.softmax_cross_entropy_with_logits to tf.stop_gradient(labels). Please check this transformation.
+
+187:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+187:24: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+189:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+192:8: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+195:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+196:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+221:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+228:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+260:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+261:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+263:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+264:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+266:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+303:34: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+306:34: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+319:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+319:24: INFO: Added keywords to args of function 'tf.nn.softmax_cross_entropy_with_logits'
+319:24: INFO: Removed argument _sentinel for function tf.nn.softmax_cross_entropy_with_logits
+319:24: INFO: Changing labels arg of tf.nn.softmax_cross_entropy_with_logits to tf.stop_gradient(labels). Please check this transformation.
+
+332:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+332:24: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+334:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+337:8: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+340:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+341:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+366:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+373:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+398:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+399:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+400:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+401:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+402:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+403:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+469:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+470:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+510:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+603:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+604:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+605:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+606:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+613:12: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+615:19: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+622:15: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+658:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+658:24: INFO: Renamed 'tf.nn.softmax_cross_entropy_with_logits_v2' to 'tf.nn.softmax_cross_entropy_with_logits'
+668:9: INFO: Added keywords to args of function 'tf.reduce_mean'
+668:24: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+670:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+673:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+674:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+679:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+680:10: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+841:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+852:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+879:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+880:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+881:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+882:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+889:8: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+936:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+937:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+941:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+942:10: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+1015:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+1022:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/dataImporter.py'
+ outputting to 'DeepRED_v2/dataImporter.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/arffImporter.py'
+ outputting to 'DeepRED_v2/arffImporter.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'DeepRED/showRule.py'
+ outputting to 'DeepRED_v2/showRule.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+

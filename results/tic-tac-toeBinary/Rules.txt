@@ -1,0 +1,186 @@
+Rules: 61	
+Terms: 280	
+
+terms/rules: 4,666
+
+x0: top-left-square=x
+x1: top-left-square=o
+x2: top-left-square=b
+x3: top-middle-square=x
+x4: top-middle-square=o
+x5: top-middle-square=b
+x6: top-right-square=x
+x7: top-right-square=o
+x8: top-right-square=b
+x9: middle-left-square=x
+x10: middle-left-square=o
+x11: middle-left-square=b
+x12: middle-middle-square=x
+x13: middle-middle-square=o
+x14: middle-middle-square=b
+x15: middle-right-square=x
+x16: middle-right-square=o
+x17: middle-right-square=b
+x18: bottom-left-square=x
+x19: bottom-left-square=o
+x20: bottom-left-square=b
+x21: bottom-middle-square=x
+x22: bottom-middle-square=o
+x23: bottom-middle-square=b
+x24: bottom-right-square=x
+x25: bottom-right-square=o
+x26: bottom-right-square=b
+
+R1: x3 > 0.5 and x10 > 0.5 and x15 <= 0.5 and x19 > 0.5 and x25 <= 0.5
+R2: x7 > 0.5 and x15 > 0.5 and x19 <= 0.5 and x21 > 0.5
+R3: x1 > 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5 and x25 <= 0.5
+R4: x7 > 0.5 and x12 <= 0.5 and x15 > 0.5 and x19 <= 0.5
+R5: x10 > 0.5 and x11 > 0.5 and x15 <= 0.5 and x19 > 0.5 and x25 <= 0.5
+R6: x3 > 0.5 and x7 <= 0.5 and x17 > 0.5 and x19 > 0.5 and x24 > 0.5
+R7: x14 > 0.5 and x15 > 0.5 and x24 <= 0.5 and x25 > 0.5
+R8: x1 > 0.5 and x7 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5
+R9: x1 > 0.5 and x7 <= 0.5 and x10 > 0.5 and x19 > 0.5 and x24 > 0.5
+R10: x11 > 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5 and x25 <= 0.5
+R11: x15 > 0.5 and x16 > 0.5 and x24 <= 0.5 and x25 <= 0.5
+R12: x11 <= 0.5 and x12 <= 0.5 and x15 > 0.5 and x23 <= 0.5 and x24 <= 0.5
+R13: x0 > 0.5 and x7 > 0.5 and x13 > 0.5 and x25 > 0.5
+R14: x7 <= 0.5 and x13 > 0.5 and x15 <= 0.5 and x19 > 0.5
+R15: x15 > 0.5 and x19 <= 0.5 and x21 > 0.5 and x24 <= 0.5
+R16: x3 > 0.5 and x7 <= 0.5 and x10 > 0.5 and x15 <= 0.5 and x19 > 0.5
+R17: x7 > 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5
+R18: x7 > 0.5 and x11 <= 0.5 and x16 > 0.5 and x19 > 0.5 and x23 <= 0.5 and x25 > 0.5
+R19: x3 > 0.5 and x7 <= 0.5 and x10 > 0.5 and x19 > 0.5 and x24 > 0.5
+R20: x7 <= 0.5 and x13 > 0.5 and x15 > 0.5 and x18 <= 0.5 and x24 <= 0.5
+R21: x7 > 0.5 and x11 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x19 > 0.5 and x23 <= 0.5
+R22: x8 > 0.5 and x15 > 0.5 and x19 <= 0.5 and x24 <= 0.5
+R23: x7 <= 0.5 and x10 > 0.5 and x11 > 0.5 and x15 <= 0.5 and x19 > 0.5
+R24: x1 > 0.5 and x7 <= 0.5 and x17 > 0.5 and x19 > 0.5 and x24 > 0.5
+R25: x3 > 0.5 and x7 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5
+R26: x1 <= 0.5 and x11 > 0.5 and x13 <= 0.5 and x15 > 0.5 and x24 <= 0.5 and x25 > 0.5
+R27: x7 > 0.5 and x8 > 0.5 and x15 > 0.5 and x19 <= 0.5
+R28: x7 > 0.5 and x12 <= 0.5 and x15 > 0.5 and x16 > 0.5
+R29: x3 > 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5 and x25 <= 0.5
+R30: x13 > 0.5 and x15 <= 0.5 and x19 > 0.5 and x25 <= 0.5
+R31: x7 > 0.5 and x14 > 0.5 and x25 > 0.5
+R32: x1 > 0.5 and x10 > 0.5 and x15 <= 0.5 and x19 > 0.5 and x25 <= 0.5
+R33: x7 <= 0.5 and x13 > 0.5 and x19 > 0.5 and x24 > 0.5
+R34: x7 > 0.5 and x8 > 0.5 and x19 <= 0.5 and x25 > 0.5
+R35: x12 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x24 <= 0.5
+R36: x7 <= 0.5 and x11 > 0.5 and x15 <= 0.5 and x17 > 0.5 and x19 > 0.5
+R37: x7 <= 0.5 and x10 > 0.5 and x11 > 0.5 and x19 > 0.5 and x24 > 0.5
+R38: x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5 and x24 <= 0.5
+R39: x7 <= 0.5 and x11 > 0.5 and x17 > 0.5 and x19 > 0.5 and x24 > 0.5
+R40: x11 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x19 > 0.5 and x23 <= 0.5 and x24 <= 0.5
+R41: x0 > 0.5 and x13 > 0.5 and x15 > 0.5 and x24 <= 0.5
+R42: x0 > 0.5 and x7 > 0.5 and x13 > 0.5 and x15 > 0.5
+R43: x12 <= 0.5 and x15 > 0.5 and x19 <= 0.5 and x24 <= 0.5
+R44: x7 > 0.5 and x12 <= 0.5 and x15 > 0.5 and x21 > 0.5
+R45: x7 > 0.5 and x15 > 0.5 and x16 > 0.5 and x25 <= 0.5
+R46: x6 <= 0.5 and x7 > 0.5 and x11 > 0.5 and x16 <= 0.5 and x25 > 0.5
+R47: x1 <= 0.5 and x7 > 0.5 and x11 > 0.5 and x13 <= 0.5 and x25 > 0.5
+R48: x1 > 0.5 and x7 <= 0.5 and x10 > 0.5 and x15 <= 0.5 and x19 > 0.5
+R49: x7 > 0.5 and x12 <= 0.5 and x25 > 0.5
+R50: x7 <= 0.5 and x10 > 0.5 and x13 > 0.5 and x15 <= 0.5
+R51: x12 <= 0.5 and x15 > 0.5 and x21 > 0.5 and x24 <= 0.5
+R52: x7 <= 0.5 and x13 > 0.5 and x15 > 0.5 and x22 > 0.5 and x24 <= 0.5
+R53: x1 <= 0.5 and x7 <= 0.5 and x15 > 0.5 and x22 > 0.5 and x24 <= 0.5
+R54: x7 > 0.5 and x12 <= 0.5 and x15 > 0.5 and x24 > 0.5
+R55: x6 <= 0.5 and x7 > 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5
+R56: x7 > 0.5 and x15 <= 0.5 and x19 <= 0.5 and x25 > 0.5 and x26 <= 0.5
+R57: x10 > 0.5 and x13 > 0.5 and x15 <= 0.5 and x25 <= 0.5
+R58: x7 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 > 0.5 and x23 <= 0.5
+R59: x7 > 0.5 and x19 <= 0.5 and x21 > 0.5 and x25 > 0.5
+R60: x1 <= 0.5 and x4 <= 0.5 and x7 <= 0.5 and x13 <= 0.5 and x15 > 0.5 and x24 <= 0.5
+R61: x6 <= 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x24 <= 0.5
+
+BNN intermediate rules:
+
+t0:  h0,11 > 0.5 OR
+t1:  h0,1 > 0.5 OR
+t2:  h0,13 > 0.5 OR
+h0,3 > 0.5
+     -> h1,2 <= 0.15220412611961
+
+t0: (h0,0 > 0.5 and h0,13 > 0.5) OR
+t1: (h0,7 <= 0.5 and h0,13 > 0.5 and h0,22 > 0.5) OR
+t2: (h0,1 <= 0.5 and h0,4 <= 0.5 and h0,7 <= 0.5 and h0,13 <= 0.5) OR
+t3: (h0,1 <= 0.5 and h0,7 <= 0.5 and h0,22 > 0.5) OR
+t4: (h0,7 <= 0.5 and h0,13 > 0.5 and h0,18 <= 0.5)
+     -> h1,4 > 0.4057657122612
+
+t0: (h0,6 <= 0.5 and h0,11 > 0.5 and h0,16 <= 0.5)
+     -> h1,12 > 0.32558578252792
+
+t0: (h0,12 <= 0.5 and h0,24 > 0.5) OR
+t1: (h0,16 > 0.5 and h0,25 <= 0.5) OR
+t2: (h0,12 <= 0.5 and h0,16 > 0.5) OR
+t3: (h0,12 <= 0.5 and h0,21 > 0.5) OR
+t4: (h0,12 <= 0.5 and h0,14 <= 0.5)
+     -> h1,15 <= -0.97517251968384
+
+t0: (h0,14 > 0.5 and h0,25 > 0.5) OR
+t1: (h0,1 <= 0.5 and h0,11 > 0.5 and h0,13 <= 0.5 and h0,25 > 0.5)
+     -> h1,17 <= -0.04095683246851
+
+t0: (h0,8 <= 0.5 and h0,13 > 0.5 and h0,15 <= 0.5 and h0,26 <= 0.5) OR
+t1: (h0,8 > 0.5 and h0,13 > 0.5)
+     -> h1,20 <= -0.65724837779999
+
+t0: (h0,15 <= 0.5 and h0,19 <= 0.5 and h0,26 <= 0.5) OR
+t1: (h0,19 <= 0.5 and h0,21 > 0.5) OR
+t2: (h0,12 <= 0.5 and h0,19 <= 0.5) OR
+t3: (h0,11 <= 0.5 and h0,16 > 0.5 and h0,19 > 0.5 and h0,23 <= 0.5) OR
+t4: (h0,11 <= 0.5 and h0,12 <= 0.5 and h0,23 <= 0.5) OR
+t5: (h0,8 > 0.5 and h0,19 <= 0.5)
+     -> h1,20 <= 0.55253541469574
+
+t0: (h0,10 > 0.5 and h0,13 > 0.5 and h0,15 <= 0.5 and h0,19 <= 0.5) OR
+t1: (h0,10 <= 0.5 and h0,13 > 0.5 and h0,19 > 0.5) OR
+t2: (h0,17 > 0.5 and h0,19 > 0.5) OR
+t3: (h0,10 > 0.5 and h0,19 > 0.5)
+     -> h1,28 > -0.13332894444466
+
+t0: (h0,10 > 0.5 and h0,13 > 0.5 and h0,15 <= 0.5 and h0,19 <= 0.5) OR
+t1: (h0,10 <= 0.5 and h0,13 > 0.5 and h0,19 > 0.5) OR
+t2: (h0,17 > 0.5 and h0,19 > 0.5) OR
+t3: (h0,10 > 0.5 and h0,19 > 0.5)
+     -> h1,28 > -0.12973347306252
+
+t0: (h0,15 <= 0.5 and h0,25 <= 0.5) OR
+t1: (h0,7 <= 0.5 and h0,24 > 0.5) OR
+t2: (h0,7 <= 0.5 and h0,15 <= 0.5)
+     -> h1,29 <= -0.05083309859037
+
+t0: (h0,7 > 0.5 and h0,25 > 0.5) OR
+t1: (h0,7 > 0.5 and h0,15 > 0.5) OR
+t2: (h0,15 > 0.5 and h0,24 <= 0.5)
+     -> h1,29 > -0.05083309859037
+
+t0: (h0,15 <= 0.5 and h0,25 <= 0.5) OR
+t1: (h0,7 <= 0.5 and h0,24 > 0.5) OR
+t2: (h0,7 <= 0.5 and h0,15 <= 0.5)
+     -> h1,29 <= -0.03437570482492
+
+t0: (h0,7 > 0.5 and h0,25 > 0.5) OR
+t1: (h0,7 > 0.5 and h0,15 > 0.5) OR
+t2: (h0,15 > 0.5 and h0,24 <= 0.5)
+     -> h1,29 > -0.03437570482492
+
+t0: (h1,15 <= -0.97517251968384 and h1,29 > -0.03437570482492) OR
+t1: (h1,2 <= 0.15220412611961 and h1,28 > -0.13332894444466 and h1,29 <= -0.03437570482492) OR
+t2: (h1,17 <= -0.04095683246851 and h1,29 > -0.03437570482492)
+     -> h2,5 <= -0.10342977941036
+
+t0: (h1,20 <= -0.65724837779999 and h1,28 > -0.12973347306252 and h1,29 <= -0.05083309859037) OR
+t1: (h1,4 > 0.4057657122612 and h1,29 > -0.05083309859037) OR
+t2: (h1,20 <= 0.55253541469574 and h1,29 > -0.05083309859037) OR
+t3: (h1,12 > 0.32558578252792 and h1,29 > -0.05083309859037)
+     -> h2,10 <= -0.38404750823975
+
+t0:  h2,10 <= -0.38404750823975 OR
+h2,5 <= -0.10342977941036
+     -> h3,1 > 0.16214136779308
+
+h3,1 > 0.16214136779308
+     -> h4,0 > 0.5
+

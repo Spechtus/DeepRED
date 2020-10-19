@@ -1,0 +1,261 @@
+Rules: 163
+Terms: 1453
+
+terms/rules: 8,99991
+
+x0: top-left-square=x
+x1: top-left-square=o
+x2: top-left-square=b
+x3: top-middle-square=x
+x4: top-middle-square=o
+x5: top-middle-square=b
+x6: top-right-square=x
+x7: top-right-square=o
+x8: top-right-square=b
+x9: middle-left-square=x
+x10: middle-left-square=o
+x11: middle-left-square=b
+x12: middle-middle-square=x
+x13: middle-middle-square=o
+x14: middle-middle-square=b
+x15: middle-right-square=x
+x16: middle-right-square=o
+x17: middle-right-square=b
+x18: bottom-left-square=x
+x19: bottom-left-square=o
+x20: bottom-left-square=b
+x21: bottom-middle-square=x
+x22: bottom-middle-square=o
+x23: bottom-middle-square=b
+x24: bottom-right-square=x
+x25: bottom-right-square=o
+x26: bottom-right-square=b
+
+R1: x2 <= 0.5 and x3 <= 0.5 and x5 > 0.5 and x6 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R2: x5 > 0.5 and x12 > 0.5 and x15 <= 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5 and x26 > 0.5
+R3: x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5 and x26 <= 0.5
+R4: x4 <= 0.5 and x8 > 0.5 and x11 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R5: x3 <= 0.5 and x6 > 0.5 and x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x26 <= 0.5
+R6: x7 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x26 <= 0.5
+R7: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x23 <= 0.5 and x26 > 0.5
+R8: x2 <= 0.5 and x4 <= 0.5 and x6 > 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R9: x2 <= 0.5 and x6 > 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x20 > 0.5 and x24 > 0.5
+R10: x6 > 0.5 and x9 > 0.5 and x15 > 0.5 and x24 > 0.5
+R11: x4 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 > 0.5
+R12: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R13: x2 <= 0.5 and x5 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5
+R14: x3 <= 0.5 and x7 <= 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x26 <= 0.5
+R15: x1 > 0.5 and x4 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x23 <= 0.5
+R16: x7 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x22 > 0.5
+R17: x1 > 0.5 and x4 <= 0.5 and x6 > 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x23 <= 0.5
+R18: x5 > 0.5 and x8 > 0.5 and x12 > 0.5 and x15 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 > 0.5
+R19: x2 <= 0.5 and x6 > 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5
+R20: x4 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 > 0.5
+R21: x6 > 0.5 and x7 <= 0.5 and x12 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R22: x2 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5
+R23: x3 <= 0.5 and x7 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x26 > 0.5
+R24: x2 <= 0.5 and x5 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5
+R25: x2 <= 0.5 and x3 <= 0.5 and x5 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R26: x1 > 0.5 and x4 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x23 <= 0.5 and x26 > 0.5
+R27: x2 <= 0.5 and x7 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 > 0.5
+R28: x2 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x24 > 0.5 and x25 <= 0.5
+R29: x2 <= 0.5 and x6 > 0.5 and x7 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5
+R30: x5 > 0.5 and x8 > 0.5 and x11 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R31: x4 <= 0.5 and x6 > 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R32: x3 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R33: x7 <= 0.5 and x8 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R34: x6 > 0.5 and x7 <= 0.5 and x9 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x22 > 0.5
+R35: x7 <= 0.5 and x8 > 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x26 <= 0.5
+R36: x3 <= 0.5 and x5 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R37: x6 > 0.5 and x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R38: x4 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R39: x8 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R40: x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x16 > 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R41: x7 <= 0.5 and x9 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x17 > 0.5 and x22 > 0.5
+R42: x2 <= 0.5 and x3 <= 0.5 and x6 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R43: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x23 <= 0.5
+R44: x4 <= 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5 and x26 <= 0.5
+R45: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x6 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x23 <= 0.5
+R46: x2 <= 0.5 and x4 <= 0.5 and x6 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R47: x2 <= 0.5 and x3 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R48: x2 <= 0.5 and x3 <= 0.5 and x5 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R49: x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5 and x26 > 0.5
+R50: x7 <= 0.5 and x12 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5 and x26 <= 0.5
+R51: x2 <= 0.5 and x3 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R52: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R53: x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x14 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R54: x1 > 0.5 and x4 <= 0.5 and x9 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R55: x5 > 0.5 and x8 > 0.5 and x15 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R56: x2 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R57: x2 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R58: x3 <= 0.5 and x5 > 0.5 and x12 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R59: x3 <= 0.5 and x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R60: x3 <= 0.5 and x11 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R61: x7 <= 0.5 and x9 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x22 > 0.5 and x25 <= 0.5
+R62: x7 <= 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R63: x7 <= 0.5 and x11 > 0.5 and x12 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R64: x7 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x26 > 0.5
+R65: x5 > 0.5 and x6 > 0.5 and x8 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R66: x7 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x16 <= 0.5 and x22 > 0.5 and x26 > 0.5
+R67: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x6 > 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x20 > 0.5 and x23 <= 0.5
+R68: x8 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x24 > 0.5
+R69: x1 <= 0.5 and x11 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x23 > 0.5 and x25 > 0.5
+R70: x2 <= 0.5 and x3 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 > 0.5
+R71: x9 > 0.5 and x15 > 0.5 and x17 > 0.5 and x24 > 0.5
+R72: x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R73: x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R74: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x14 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R75: x6 > 0.5 and x7 <= 0.5 and x8 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x26 <= 0.5
+R76: x2 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x24 > 0.5
+R77: x7 <= 0.5 and x8 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x26 <= 0.5
+R78: x2 <= 0.5 and x3 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x25 <= 0.5
+R79: x8 > 0.5 and x11 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R80: x4 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R81: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x20 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R82: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R83: x2 <= 0.5 and x7 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x25 <= 0.5
+R84: x9 > 0.5 and x12 > 0.5 and x24 > 0.5 and x26 > 0.5
+R85: x9 > 0.5 and x15 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R86: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R87: x4 <= 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x17 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R88: x5 > 0.5 and x12 > 0.5 and x15 > 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R89: x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x17 > 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R90: x1 > 0.5 and x4 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R91: x2 <= 0.5 and x7 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 > 0.5
+R92: x4 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 > 0.5
+R93: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x6 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5
+R94: x1 > 0.5 and x4 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R95: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x23 <= 0.5 and x25 <= 0.5 and x26 <= 0.5
+R96: x2 <= 0.5 and x3 <= 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x25 <= 0.5
+R97: x3 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R98: x3 <= 0.5 and x5 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R99: x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5
+R100: x1 > 0.5 and x4 <= 0.5 and x11 > 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R101: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R102: x2 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5
+R103: x1 > 0.5 and x4 <= 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R104: x2 <= 0.5 and x7 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x25 <= 0.5
+R105: x3 <= 0.5 and x5 > 0.5 and x12 > 0.5 and x15 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 > 0.5
+R106: x3 <= 0.5 and x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R107: x5 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5
+R108: x3 <= 0.5 and x5 > 0.5 and x11 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R109: x2 <= 0.5 and x7 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x25 <= 0.5
+R110: x2 <= 0.5 and x3 <= 0.5 and x6 > 0.5 and x7 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5
+R111: x8 > 0.5 and x15 > 0.5 and x16 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R112: x4 <= 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R113: x1 > 0.5 and x4 <= 0.5 and x6 > 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R114: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R115: x1 > 0.5 and x4 <= 0.5 and x8 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x22 <= 0.5 and x23 <= 0.5
+R116: x3 <= 0.5 and x7 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x26 <= 0.5
+R117: x1 > 0.5 and x4 <= 0.5 and x6 > 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R118: x1 > 0.5 and x4 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x18 > 0.5 and x21 > 0.5 and x23 <= 0.5 and x26 > 0.5
+R119: x4 <= 0.5 and x9 > 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R120: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5
+R121: x6 > 0.5 and x8 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R122: x2 <= 0.5 and x7 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x13 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x22 > 0.5 and x25 <= 0.5
+R123: x9 > 0.5 and x12 > 0.5 and x15 > 0.5 and x24 > 0.5
+R124: x12 > 0.5 and x15 > 0.5 and x16 > 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R125: x8 > 0.5 and x12 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R126: x3 <= 0.5 and x6 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R127: x1 <= 0.5 and x5 <= 0.5 and x11 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x25 > 0.5
+R128: x1 > 0.5 and x4 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x25 <= 0.5 and x26 <= 0.5
+R129: x9 > 0.5 and x11 > 0.5 and x15 > 0.5 and x24 > 0.5
+R130: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 > 0.5 and x23 <= 0.5
+R131: x8 > 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 > 0.5
+R132: x2 <= 0.5 and x3 <= 0.5 and x5 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R133: x2 <= 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R134: x4 <= 0.5 and x8 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R135: x3 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 > 0.5
+R136: x3 <= 0.5 and x5 > 0.5 and x15 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R137: x3 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x16 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R138: x2 <= 0.5 and x5 > 0.5 and x6 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5
+R139: x5 > 0.5 and x8 > 0.5 and x9 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x22 <= 0.5 and x24 > 0.5
+R140: x1 > 0.5 and x4 <= 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x17 > 0.5 and x23 <= 0.5
+R141: x2 <= 0.5 and x3 <= 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5
+R142: x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x23 <= 0.5 and x25 <= 0.5
+R143: x3 <= 0.5 and x5 > 0.5 and x6 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 > 0.5 and x24 > 0.5 and x26 <= 0.5
+R144: x2 <= 0.5 and x9 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x20 > 0.5 and x24 > 0.5 and x25 <= 0.5
+R145: x7 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x18 > 0.5 and x20 <= 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R146: x7 <= 0.5 and x12 <= 0.5 and x15 > 0.5 and x16 <= 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 <= 0.5
+R147: x1 > 0.5 and x4 <= 0.5 and x9 > 0.5 and x11 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x23 <= 0.5
+R148: x5 > 0.5 and x8 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5 and x26 <= 0.5
+R149: x2 <= 0.5 and x6 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5
+R150: x2 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5
+R151: x1 > 0.5 and x2 <= 0.5 and x4 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x14 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x23 <= 0.5
+R152: x5 > 0.5 and x8 > 0.5 and x12 > 0.5 and x15 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x24 > 0.5 and x26 <= 0.5
+R153: x2 <= 0.5 and x5 > 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x17 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5
+R154: x4 <= 0.5 and x9 > 0.5 and x11 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R155: x2 <= 0.5 and x6 > 0.5 and x7 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 <= 0.5 and x20 > 0.5 and x22 > 0.5
+R156: x4 <= 0.5 and x6 > 0.5 and x9 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R157: x2 <= 0.5 and x8 > 0.5 and x11 <= 0.5 and x12 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x20 > 0.5 and x22 <= 0.5 and x24 > 0.5 and x25 <= 0.5
+R158: x4 <= 0.5 and x8 > 0.5 and x14 <= 0.5 and x15 > 0.5 and x16 > 0.5 and x17 > 0.5 and x20 <= 0.5 and x22 <= 0.5 and x23 <= 0.5 and x26 <= 0.5
+R159: x1 <= 0.5 and x5 <= 0.5 and x7 > 0.5 and x11 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x25 > 0.5
+R160: x3 <= 0.5 and x7 <= 0.5 and x12 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x20 <= 0.5 and x22 > 0.5 and x23 > 0.5 and x26 <= 0.5
+R161: x4 <= 0.5 and x9 <= 0.5 and x12 > 0.5 and x14 <= 0.5 and x15 <= 0.5 and x16 > 0.5 and x18 > 0.5 and x21 > 0.5 and x22 <= 0.5 and x23 <= 0.5
+R162: x7 <= 0.5 and x9 > 0.5 and x11 > 0.5 and x15 > 0.5 and x16 <= 0.5 and x22 > 0.5
+R163: x7 <= 0.5 and x12 > 0.5 and x15 <= 0.5 and x16 <= 0.5 and x18 > 0.5 and x21 > 0.5 and x22 > 0.5 and x23 <= 0.5 and x26 > 0.5
+
+BNN intermediate rules:
+
+t0: (h0,15 <= 0.5 and h0,18 <= 0.5) OR
+t1: (h0,5 <= 0.5 and h0,15 > 0.5 and h0,20 <= 0.5) OR
+t2: (h0,4 <= 0.5 and h0,15 <= 0.5) OR
+t3: (h0,15 > 0.5 and h0,23 > 0.5) OR
+t4: (h0,15 <= 0.5 and h0,17 > 0.5) OR
+t5: (h0,5 <= 0.5 and h0,7 > 0.5 and h0,15 > 0.5) OR
+t6: (h0,11 > 0.5 and h0,15 <= 0.5)
+     -> h1,1 <= 0.0
+
+t0:  h0,9 > 0.5 OR
+t1: (h0,12 <= 0.5 and h0,22 > 0.5 and h0,23 <= 0.5) OR
+t2: (h0,3 <= 0.5 and h0,23 > 0.5) OR
+t3: (h0,12 > 0.5 and h0,18 > 0.5 and h0,21 > 0.5 and h0,23 <= 0.5) OR
+h0,8 > 0.5
+     -> h1,3 > 0.0
+
+t0: (h0,1 > 0.5 and h0,4 <= 0.5 and h0,14 <= 0.5 and h0,23 <= 0.5) OR
+t1: (h0,16 > 0.5 and h0,22 <= 0.5 and h0,24 > 0.5) OR
+t2: (h0,9 > 0.5 and h0,24 > 0.5) OR
+t3: (h0,4 <= 0.5 and h0,14 <= 0.5 and h0,16 > 0.5 and h0,22 <= 0.5 and h0,23 <= 0.5) OR
+t4: (h0,5 > 0.5 and h0,22 <= 0.5 and h0,24 > 0.5) OR
+t5: (h0,7 <= 0.5 and h0,16 <= 0.5 and h0,22 > 0.5)
+     -> h1,8 <= 0.0
+
+t0:  h0,11 > 0.5 OR
+t1:  h0,25 <= 0.5 OR
+t2:  h0,6 > 0.5 OR
+t3:  h0,17 > 0.5 OR
+h0,12 > 0.5
+     -> h1,9 > 0.0
+
+t0: (h0,1 <= 0.5 and h0,11 <= 0.5 and h0,12 > 0.5 and h0,15 > 0.5 and h0,25 > 0.5)
+     -> h1,10 > 0.0
+
+t0: (h0,15 > 0.5 and h0,20 <= 0.5 and h0,26 <= 0.5) OR
+t1: (h0,2 <= 0.5 and h0,11 <= 0.5 and h0,12 <= 0.5 and h0,15 <= 0.5 and h0,20 > 0.5) OR
+t2: (h0,2 <= 0.5 and h0,11 <= 0.5 and h0,12 <= 0.5 and h0,13 <= 0.5 and h0,15 <= 0.5 and h0,25 <= 0.5) OR
+t3: (h0,12 > 0.5 and h0,15 <= 0.5 and h0,26 > 0.5) OR
+t4: (h0,9 <= 0.5 and h0,12 > 0.5 and h0,15 <= 0.5 and h0,22 <= 0.5) OR
+t5: (h0,9 > 0.5 and h0,15 > 0.5)
+     -> h1,15 <= 0.0
+
+
+     -> h1,25 <= 0.0
+
+t0:  h0,4 <= 0.5 OR
+t1:  h0,19 > 0.5 OR
+t2: (h0,1 <= 0.5 and h0,15 > 0.5) OR
+t3: (h0,13 > 0.5 and h0,15 > 0.5)
+     -> h1,29 <= 0.0
+
+t0: (h1,1 <= 0.0 and h1,10 > 0.0 and h1,29 <= 0.0) OR
+t1: (h1,3 > 0.0 and h1,8 <= 0.0 and h1,9 > 0.0 and h1,15 <= 0.0) OR
+t2: (h1,15 <= 0.0 and h1,25 <= 0.0)
+     -> h2,11 <= 0.0
+
+h2,11 <= 0.0
+     -> h3,0 > 0.0
+
+h3,0 > 0.0
+     -> h4,0 > 0.5
+

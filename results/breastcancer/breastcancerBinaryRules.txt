@@ -1,0 +1,122 @@
+x3	Clump_Thickness=4
+x5	Clump_Thickness=6
+x10	Uniformity_of_Cell_Size=1
+x12	Uniformity_of_Cell_Size=3
+x20	Uniformity_of_Cell_Shape=1
+x21	Uniformity_of_Cell_Shape=2
+x22	Uniformity_of_Cell_Shape=3
+x31	Marginal_Adhesion=2
+x40	Single_Epithelial_Cell_Size=1
+x41	Single_Epithelial_Cell_Size=2
+x50	Bare_Nuclei=1
+x59	Bare_Nuclei=10
+x61	Bland_Chromatin=2
+x70	Normla_Nucleoli=1
+x71	Normla_Nucleoli=2
+
+
+R1: x12 <= 0.5 and x20 > 0.5 and x43 <= 0.5 and x50 <= 0.5 and x53 <= 0.5 and x61 <= 0.5 and x70 <= 0.5
+R2: x7 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R3: x10 <= 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x33 > 0.5 and x59 > 0.5 and x70 > 0.5
+R4: x10 <= 0.5 and x20 > 0.5 and x27 <= 0.5 and x30 <= 0.5 and x33 > 0.5 and x61 > 0.5 and x70 <= 0.5
+R5: x9 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R6: x10 <= 0.5 and x20 > 0.5 and x30 > 0.5 and x42 > 0.5 and x61 > 0.5 and x70 <= 0.5
+R7: x10 <= 0.5 and x20 <= 0.5 and x30 > 0.5 and x42 > 0.5 and x59 > 0.5 and x70 > 0.5
+R8: x3 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x50 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R9: x12 <= 0.5 and x20 <= 0.5 and x31 > 0.5 and x43 <= 0.5 and x50 <= 0.5 and x53 <= 0.5 and x70 <= 0.5
+R10: x9 > 0.5 and x10 <= 0.5 and x20 > 0.5 and x30 <= 0.5 and x61 > 0.5 and x70 <= 0.5
+R11: x10 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R12: x4 <= 0.5 and x20 <= 0.5 and x41 <= 0.5 and x50 <= 0.5 and x64 <= 0.5
+R13: x7 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x59 > 0.5 and x70 > 0.5
+R14: x10 <= 0.5 and x20 <= 0.5 and x30 > 0.5 and x42 > 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R15: x10 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R16: x3 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x50 > 0.5 and x59 > 0.5 and x70 > 0.5
+R17: x9 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x59 > 0.5 and x70 > 0.5
+R18: x20 <= 0.5 and x43 > 0.5 and x50 <= 0.5 and x70 <= 0.5 and x72 <= 0.5 and x75 > 0.5
+R19: x10 <= 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x33 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R20: x20 <= 0.5 and x50 <= 0.5 and x70 <= 0.5 and x72 > 0.5 and x80 <= 0.5
+R21: x4 <= 0.5 and x20 <= 0.5 and x43 > 0.5 and x50 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R22: x3 > 0.5 and x10 <= 0.5 and x20 > 0.5 and x50 > 0.5 and x61 > 0.5 and x70 <= 0.5
+R23: x20 > 0.5 and x50 <= 0.5 and x61 <= 0.5 and x80 <= 0.5
+R24: x4 <= 0.5 and x20 <= 0.5 and x50 <= 0.5 and x59 > 0.5 and x70 > 0.5
+R25: x10 <= 0.5 and x15 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x59 > 0.5 and x70 > 0.5
+R26: x20 <= 0.5 and x31 > 0.5 and x43 <= 0.5 and x50 <= 0.5 and x70 <= 0.5 and x80 <= 0.5
+R27: x7 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R28: x10 <= 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x33 > 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R29: x50 <= 0.5 and x59 <= 0.5 and x70 > 0.5 and x80 <= 0.5
+R30: x10 <= 0.5 and x15 > 0.5 and x20 > 0.5 and x27 <= 0.5 and x30 <= 0.5 and x61 > 0.5 and x70 <= 0.5
+R31: x20 <= 0.5 and x41 <= 0.5 and x50 <= 0.5 and x64 <= 0.5 and x75 > 0.5
+R32: x10 <= 0.5 and x20 <= 0.5 and x30 > 0.5 and x31 <= 0.5 and x32 <= 0.5 and x42 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R33: x4 <= 0.5 and x20 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x50 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R34: x12 <= 0.5 and x20 <= 0.5 and x32 > 0.5 and x43 <= 0.5 and x50 <= 0.5 and x53 <= 0.5 and x70 <= 0.5
+R35: x10 <= 0.5 and x19 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R36: x12 <= 0.5 and x20 <= 0.5 and x43 <= 0.5 and x50 <= 0.5 and x53 <= 0.5 and x70 <= 0.5 and x72 > 0.5
+R37: x20 > 0.5 and x50 <= 0.5 and x70 > 0.5 and x80 <= 0.5
+R38: x10 <= 0.5 and x19 > 0.5 and x20 > 0.5 and x27 <= 0.5 and x30 <= 0.5 and x61 > 0.5 and x70 <= 0.5
+R39: x7 > 0.5 and x10 <= 0.5 and x20 > 0.5 and x30 <= 0.5 and x61 > 0.5 and x70 <= 0.5
+R40: x20 <= 0.5 and x32 > 0.5 and x43 <= 0.5 and x50 <= 0.5 and x70 <= 0.5 and x80 <= 0.5
+R41: x20 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x50 <= 0.5 and x70 <= 0.5 and x72 <= 0.5 and x75 > 0.5
+R42: x20 <= 0.5 and x50 <= 0.5 and x59 > 0.5 and x70 > 0.5 and x75 > 0.5
+R43: x10 <= 0.5 and x19 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x43 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+R44: x10 <= 0.5 and x19 > 0.5 and x20 <= 0.5 and x27 <= 0.5 and x30 <= 0.5 and x59 > 0.5 and x70 > 0.5
+R45: x9 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x30 <= 0.5 and x31 <= 0.5 and x32 <= 0.5 and x70 <= 0.5 and x72 <= 0.5
+R46: x3 > 0.5 and x10 <= 0.5 and x20 <= 0.5 and x43 > 0.5 and x50 > 0.5 and x70 <= 0.5 and x72 <= 0.5
+
+BNN intermediate rules:
+
+t0: (h0,3 > 0.5 and h0,10 <= 0.5 and h0,50 > 0.5) OR
+t1: (h0,4 <= 0.5 and h0,20 <= 0.5 and h0,50 <= 0.5) OR
+t2: (h0,4 > 0.5 and h0,20 <= 0.5 and h0,50 <= 0.5 and h0,75 > 0.5)
+
+     -> h1,9 <= 0.0
+
+t0: (h0,50 <= 0.5 and h0,80 <= 0.5) OR
+t1: (h0,12 <= 0.5 and h0,43 <= 0.5 and h0,50 <= 0.5 and h0,53 <= 0.5 and h0,70 <= 0.5) OR
+t2: (h0,12 <= 0.5 and h0,43 <= 0.5 and h0,50 <= 0.5 and h0,53 <= 0.5 and h0,70 <= 0.5)
+
+     -> h1,17 > 0.0
+
+t0: (h0,41 <= 0.5 and h0,50 <= 0.5 and h0,64 <= 0.5)
+
+     -> h1,24 <= 0.0
+
+t0: (h0,10 <= 0.5 and h0,15 > 0.5 and h0,27 <= 0.5 and h0,30 <= 0.5) OR
+t1: (h0,10 <= 0.5 and h0,19 > 0.5 and h0,27 <= 0.5 and h0,30 <= 0.5) OR
+t2: (h0,7 > 0.5 and h0,10 <= 0.5 and h0,30 <= 0.5) OR
+t3: (h0,9 > 0.5 and h0,10 <= 0.5 and h0,30 <= 0.5) OR
+t4: (h0,10 <= 0.5 and h0,30 > 0.5 and h0,42 > 0.5) OR
+t5: (h0,10 <= 0.5 and h0,27 <= 0.5 and h0,30 <= 0.5 and h0,33 > 0.5)
+
+     -> h1,28 <= 0.0
+
+t0: (h0,20 > 0.5 and h0,61 <= 0.5) OR
+t1: (h0,20 <= 0.5 and h0,31 > 0.5 and h0,43 <= 0.5 and h0,70 <= 0.5) OR
+t2: (h0,20 > 0.5 and h0,70 > 0.5) OR
+t3: (h0,59 <= 0.5 and h0,70 > 0.5) OR
+t4: (h0,20 <= 0.5 and h0,70 <= 0.5 and h0,72 > 0.5) OR
+t5: (h0,20 <= 0.5 and h0,32 > 0.5 and h0,43 <= 0.5 and h0,70 <= 0.5)
+
+     -> h1,29 <= 0.0
+
+t0: (h0,20 <= 0.5 and h0,43 > 0.5 and h0,70 <= 0.5 and h0,72 <= 0.5) OR
+t1: (h0,20 <= 0.5 and h0,59 > 0.5 and h0,70 > 0.5) OR
+t2: (h0,20 <= 0.5 and h0,31 <= 0.5 and h0,32 <= 0.5 and h0,70 <= 0.5 and h0,72 <= 0.5) OR
+t3: (h0,20 > 0.5 and h0,61 > 0.5 and h0,70 <= 0.5) OR
+t4: (h0,20 <= 0.5 and h0,31 <= 0.5 and h0,32 <= 0.5 and h0,70 <= 0.5 and h0,72 <= 0.5)
+
+     -> h1,29 > 0.0
+
+t0: (h1,9 <= 0.0 and h1,24 <= 0.0) OR
+t1: (h1,17 > 0.0 and h1,29 <= 0.0) OR
+t2: (h1,9 <= 0.0 and h1,29 > 0.0) OR
+t3: (h1,28 <= 0.0 and h1,29 > 0.0)
+
+     -> h2,11 <= 0.5
+
+h2,11 <= 0.5
+
+     -> h3,0 <= 0.5
+
+h3,0 <= 0.5
+
+     -> h4,1 > 0.5

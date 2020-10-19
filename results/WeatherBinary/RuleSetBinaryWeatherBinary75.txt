@@ -1,0 +1,34 @@
+dataset_name = 'WeatherBinary'
+split_name = '75'
+
+
+hidden_nodes= [10,6,2]
+model_name = 'nn,10,6,2hidden,tanh,WeatherBinary,75'
+
+x1 outlook=overcast
+x6 humidity=normal
+
+Rules:
+
+x1 > 0.5
+x6 > 0.5
+
+BNN intermediate rules:
+
+t0:  h0,1 > 0.5 OR
+h0,6 > 0.5
+
+     -> h1,6 > 0.0
+
+h1,6 > 0.0
+
+     -> h2,2 <= 0.5
+
+h2,2 <= 0.5
+
+     -> h3,0 > 0.5
+
+h3,0 > 0.5
+
+     -> h4,1 > 0.5
+

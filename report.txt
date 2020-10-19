@@ -1,0 +1,74 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 1 files
+Detected 2 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: DeepRED_v2/deep_nn_keep_training_polarize.py
+--------------------------------------------------------------------------------
+DeepRED_v2/deep_nn_keep_training_polarize.py:224:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+DeepRED_v2/deep_nn_keep_training_polarize.py:541:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+================================================================================
+Detailed log follows:
+
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'DeepRED_v2/deep_nn_keep_training_polarize.py'
+ outputting to '/tmp/deep_nn_keep_training_polarize_v2.py'
+--------------------------------------------------------------------------------
+
+16:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+21:20: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+97:8: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+101:25: INFO: Renamed 'tf.log' to 'tf.math.log'
+123:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+124:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+126:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+127:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+129:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+156:24: INFO: Added keywords to args of function 'tf.reduce_sum'
+157:17: INFO: Added keywords to args of function 'tf.reduce_sum'
+160:33: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+162:25: INFO: Added keywords to args of function 'tf.reduce_sum'
+163:18: INFO: Added keywords to args of function 'tf.reduce_sum'
+171:8: INFO: Added keywords to args of function 'tf.reduce_mean'
+171:23: INFO: Renamed 'tf.nn.softmax_cross_entropy_with_logits_v2' to 'tf.nn.softmax_cross_entropy_with_logits'
+172:15: INFO: Added keywords to args of function 'tf.reduce_sum'
+174:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+177:8: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+180:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+181:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+224:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+229:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+231:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+257:20: INFO: Renamed 'tf.log' to 'tf.math.log'
+257:27: INFO: Renamed 'tf.div' to 'tf.compat.v1.div'
+337:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+338:11: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+339:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+340:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+350:12: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+352:19: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+359:15: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+367:14: INFO: Renamed 'tf.div' to 'tf.compat.v1.div'
+367:21: INFO: Added keywords to args of function 'tf.reduce_sum'
+368:17: INFO: Added keywords to args of function 'tf.reduce_sum'
+373:15: INFO: Renamed 'tf.div' to 'tf.compat.v1.div'
+373:22: INFO: Added keywords to args of function 'tf.reduce_sum'
+374:18: INFO: Added keywords to args of function 'tf.reduce_sum'
+384:8: INFO: Added keywords to args of function 'tf.reduce_mean'
+384:23: INFO: Added keywords to args of function 'tf.nn.softmax_cross_entropy_with_logits'
+384:23: INFO: Removed argument _sentinel for function tf.nn.softmax_cross_entropy_with_logits
+384:23: INFO: Changing labels arg of tf.nn.softmax_cross_entropy_with_logits to tf.stop_gradient(labels). Please check this transformation.
+
+385:15: INFO: Added keywords to args of function 'tf.reduce_sum'
+387:14: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+390:9: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+391:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+396:8: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+397:10: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+541:13: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+552:1: INFO: Renamed 'tf.reset_default_graph' to 'tf.compat.v1.reset_default_graph'
+--------------------------------------------------------------------------------
+

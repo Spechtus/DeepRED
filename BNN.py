@@ -4,7 +4,7 @@ import binary_layer
 import numpy as np
 import pickle
 import time
-# acc: 86.18%??
+
 
 tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))

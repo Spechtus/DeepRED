@@ -235,7 +235,6 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	if isinstance(bio, list):
 		print('Number rules:',len(bio))
 		print('Number terms:',sum(len(r) for r in bio))	
-	
 
 
 	print("Accuracy", ef.network_accuracy(output_condition,data,binary))

@@ -278,9 +278,60 @@ for j in range(num_epochs):
     if acc_train > old_acc:
         old_acc = acc_train
         save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
-        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        print("model saved")
+        #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+        #print("model saved")
+
+saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
+print("Model " + model_name + " restored")
+
+acc_train = 0.0
+loss_train = 0.0
+
+acc_train = sess.run(accuracy,
+            feed_dict={
+                x: x_train,
+                target: y_train,
+                training: False
+            })
+loss_train += sess.run(loss, 
+            feed_dict={
+                x: x_train, 
+                target: y_train, 
+                training: False})
+
+acc_vali = 0.0
+loss_vali = 0.0
+acc_vali += sess.run(accuracy,
+            feed_dict={
+                x: x_vali,
+                target: y_vali,
+                training: False
+            })
+loss_vali += sess.run(loss,
+            feed_dict={
+                x: x_vali,
+                target: y_vali,
+                training: False
+            })
+acc_test = 0.0
+loss_test = 0.0
+
+acc_test += sess.run(accuracy,
+            feed_dict={
+                x: x_test,
+                target: y_test,
+                training: False
+            })
+loss_test += sess.run(loss, 
+            feed_dict={
+                x: x_test,
+                target: y_test,
+                training: False
+            })
+
+print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
 
 t_end = time.clock()
 passed_time = 'Passed time: ' + str(t_end - t_start)

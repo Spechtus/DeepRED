@@ -16,19 +16,20 @@ import numpy as np
 
 
 dataset_name = 'Q1_300'
-split_name = '70'
+split_name = '70b'
 
-binary=False
+binary=True
 
 full_name = dataset_name +'_'+split_name
 
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,tanh,Q1_300,70'
+model_name = 'nn,4,3,2hidden,relu,Q1_300,70'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
 # models (for instance a subset of the train data can be used to extract 
 # the rule model).
+
 
 def set_split_manually(dataset_name, split_name, train_indexes, test_indexes):
 	'''
@@ -116,8 +117,8 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 # Extract the rule set model
 
 def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
-	target_class_index, function='tanh', softmax=True, class_dominance=97, 
-	min_set_size=1, dis_config=0, rft_pruning_config=1, rep_pruning_config=1, 
+	target_class_index, function='tanh', softmax=True, class_dominance=96, 
+	min_set_size=1, dis_config=0, rft_pruning_config=0, rep_pruning_config=1, 
 	print_excel_results=False): 
 	'''
 	param dataset_name: name of dataset without .csv
@@ -186,7 +187,8 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 
 	# Determine what neurons are relevant
 	print('relevant neurons dict')
-	rel_neuron_dict = dti.relevant_neurons(weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons)
+	rel_neuron_dict = dti.relevant_neurons(weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
+	print(rel_neuron_dict)
 	#print(rel_neuron_dict)
 	print('relevant neurons dict finished')
 
@@ -235,9 +237,19 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 		print('Number terms:',sum(len(r) for r in bio))	
 	
 
-	print("Accuracy", ef.network_accuracy(output_condition,data))
-	print('Fidelity:', ef.accuracy_of_dnf(data, output_condition, bio, True, True, True, True))
-	
+
+	print("Accuracy", ef.network_accuracy(output_condition,data,binary))
+	print("Network Precision:", ef.network_precision(output_condition, data, binary))
+	print("Network Recall:", ef.network_recall(output_condition, data, binary))
+	print("class accuracy:", ef.class_accuracy(data, bio, target_class_index, False, True, True, True, binary))
+	print("prediction fidelity:", ef.prediction_fidelity(data, bio , target_class_index, False, True, True, True, binary))
+	print("class precision:",ef.class_precision(data, bio, target_class_index, False, True, True, True, binary))
+	print("class recall:",ef.class_recall(data, bio, target_class_index, False, True, True, True, binary))
+	print('Accuracy of DNF:', ef.accuracy_of_dnf(data, output_condition, bio, False, True, True, True))
+	print("Precision of DNF", ef.precision_of_dnf(data, output_condition, bio, False, True, True, True))
+	print("Recall of DNF", ef.recall_of_dnf(data, output_condition, bio, False, True, True, True))
+
+
 	print('Time for building BNN:', time_end_extraction-time_start)
 	print('Time for final Ruleset:', time_end-time_end_extraction)
 	print('Total time:', time_end-time_start)
@@ -267,5 +279,5 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 #	init_iterations=3000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='relu')
 

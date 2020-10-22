@@ -114,6 +114,7 @@ layers = len(hidden_layer)+1
 
 print("Size of:")
 print("- Training-set:\t\t{}".format(len(x_train)))
+print("- Vali-set:\t\t{}".format(len(x_vali)))
 print("- Test-set:\t\t{}".format(len(x_test)))
 
 # Class in the range -1 OR +1
@@ -148,7 +149,7 @@ print("activation = ", activation)
 # BinaryConnect
 binary = True
 print("binary = "+str(binary))
-stochastic = True
+stochastic = False
 print("stochastic = "+str(stochastic))
 # (-H,+H) are the two binary values
 H = 1.
@@ -157,7 +158,7 @@ W_LR_scale = "Glorot" # "Glorot" means we are using the coefficients from Glorot
 print("W_LR_scale = "+str(W_LR_scale))
 
 # Training parameters
-num_epochs = 2000 #500
+num_epochs = 3000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)
@@ -178,7 +179,7 @@ loss = tf.keras.metrics.squared_hinge(target, train_output)
 accuracy = tf.reduce_mean(input_tensor=tf.cast(tf.equal(tf.argmax(input=train_output, axis=1), tf.argmax(input=target, axis=1)), tf.float32))
 
 
-train_batch_size = 8 #50
+train_batch_size = 16 #50
 lr_start = 0.001
 lr_end = 0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)
@@ -214,66 +215,61 @@ for j in range(num_epochs):
 
     acc_train = 0.0
     loss_train = 0.0
-    for i in range(int(len(x_train))):
-        acc_train += sess.run(accuracy,
+    
+    acc_train += sess.run(accuracy,
                 feed_dict={
-                    input: x_train[i:(i+1)],
-                    target: y_train[i:(i+1)],
+                    input: x_train[:],
+                    target: y_train[:],
                     training: False
                 })
-        loss_train += sess.run(loss, 
+    loss_train += sess.run(loss, 
                 feed_dict={
-                    input: x_train[i:(i+1)], 
-                    target: y_train[i:(i+1)], 
+                    input: x_train[:], 
+                    target: y_train[:], 
                     training: False})
-    acc_train /= len(x_train)
-    loss_train /= len(x_train)
-
+    
     acc_vali = 0.0
     loss_vali = 0.0
-    for i in range(int(len(x_vali))):
-        acc_vali += sess.run(accuracy,
+
+    acc_vali += sess.run(accuracy,
                 feed_dict={
-                    input: x_vali[i:(i+1)],
-                    target: y_vali[i:(i+1)],
+                    input: x_vali[:],
+                    target: y_vali[:],
                     training: False
                 })
-        loss_vali += sess.run(loss,
+    loss_vali += sess.run(loss,
                 feed_dict={
-                    input: x_vali[i:(i+1)],
-                    target: y_vali[i:(i+1)],
+                    input: x_vali[:],
+                    target: y_vali[:],
                     training: False
                 })
-    acc_vali /= len(x_vali)
-    loss_vali /= len(x_vali)
-    
+
     acc_test = 0.0
     loss_test = 0.0
-    for i in range(int(len(x_test))):
-        acc_test += sess.run(accuracy,
+    
+    acc_test += sess.run(accuracy,
                 feed_dict={
-                    input: x_test[i:(i+1)],
-                    target: y_test[i:(i+1)],
+                    input: x_test[:],
+                    target: y_test[:],
                     training: False
                 })
-        loss_test += sess.run(loss, 
+    loss_test += sess.run(loss, 
                 feed_dict={
-                    input: x_test[i:(i+1)],
-                    target: y_test[i:(i+1)],
+                    input: x_test[:],
+                    target: y_test[:],
                     training: False
                 })
-        
-    acc_test /= len(x_test)
-    loss_test /= len(x_test)
+
+    
 
     if j % (num_epochs/10) == 0:
         print("Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (acc_train,  acc_vali, acc_test, sess.run(opt._lr)))
         print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+        
     
     if acc_train > old_acc:
         old_acc = acc_train
         save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        #print(sess.run(loss, feed_dict={target: y_train, train_output: x_train}))
         print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
         print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
         print("model saved")

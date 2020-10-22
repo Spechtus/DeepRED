@@ -1,6 +1,6 @@
 import pickle
 
-dataset_name = 'agaricus-lepiotaBinary'
+dataset_name = 'Q1_300'
 split_name = '70b'
 
 name = dataset_name + '_' + split_name
@@ -10,7 +10,7 @@ def showRule(name):
         bioList = pickle.load(f)
         i = 0
         while i < len(bioList):
-            if len(bioList[i]) == 1: printSingleRule(bioList[i], i) 
+            if len(bioList[i]) == 1: printSingleRule(bioList[i], i)
             else: extractRule(bioList[i], i)
             i += 1
 

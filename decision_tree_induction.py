@@ -17,7 +17,7 @@ import warnings
 from scipy.cluster import vq
 
 
-def build_BNN(data, output_condition, cd = 98, mss = 1, md = 5, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
+def build_BNN(data, output_condition, cd = 96, mss = 1, md = 10, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
 	'''
 	Starting from the target condition and until the conditions with respect 
 	to the first hidden layer, it extracts a DNF that explains each condition
@@ -37,7 +37,7 @@ def build_BNN(data, output_condition, cd = 98, mss = 1, md = 5, relevant_neuron_
 	print('deep layer: ')
 	#print(deep_layer)
 	print('targetclass: ')
-	#print(target_class)
+	print(target_class)
 	while deep_layer > 0:
 		target_split_values = set((l, n, t) for (l, n, t, u) in target_class)
 		print('target_split_values: ')
@@ -175,12 +175,17 @@ def _sp(shallow_n, deep_n, split_points, dic):
 	else:
 		return []
 
-def relevant_neurons(weights, hidden_nodes, input_len, output_len = 2):
+def relevant_neurons(weights, hidden_nodes, input_len, output_len = 2, binaryExtraction=False):
 	output_layer = len(hidden_nodes)+1
 	relevant_neurons_dictionary = {}
 	# The softmax layer should not have nulled out entries
-	for o in range(output_len):
-		relevant_neurons_dictionary[(output_layer, o)] = range(hidden_nodes[-1])
+	if binaryExtraction:
+		relevant_neurons_dictionary[(output_layer, -1)] = range(hidden_nodes[-1])
+		relevant_neurons_dictionary[(output_layer, 1)] = range(hidden_nodes[-1])
+	else:	
+		relevant_neurons_dictionary[(output_layer, 0)] = range(hidden_nodes[-1])
+		relevant_neurons_dictionary[(output_layer, 1)] = range(hidden_nodes[-1])
+	
 	# Determine relevant neurons as those where the connection is not nulled
 	for h in range(2, output_layer):
 		deep_len = hidden_nodes[h-1]

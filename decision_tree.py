@@ -176,7 +176,7 @@ def buildtree(rows, split_points, scoref=entropy, class_dominance = 98, min_set_
   param param max_depth: is a set number outlying the maximal depth of the tree
   '''
   print('buildtree')
-  #print('rows',rows)
+  #print('rows',rows) 
   if len(rows)==0: return decisionnode()
   current_classification = uniquecounts(rows)
   print('current_classification', current_classification)

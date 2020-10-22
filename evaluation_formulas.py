@@ -20,7 +20,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 		real_value = data.examples[i].class_value
 		if binaryExtraction:
 			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][output_char[1]]
+		network_value = data.examples[i].values[data.network_length-1][1]
 		if real_value == network_value:
 			if i in data.train_indexes:
 				correct_predictions_train += 1
@@ -29,20 +29,21 @@ def network_accuracy(output_char, data, binaryExtraction):
 			elif i in data.test_indexes:
 				correct_predictions_test += 1
 	if data.num_train > 0:
-		train_accuracy = float(correct_predictions_train) / data.num_train
+		train_accuracy = float(correct_predictions_train / data.num_train)
 	else:
 		train_accuracy = 1
 	if data.num_vali > 0:
-		vali_accuracy = float(correct_predictions_vali) / data.num_vali
+		vali_accuracy = float(correct_predictions_vali / data.num_vali)
 	else:
 		vali_accuracy = 1
 	if data.num_test > 0:
-		test_accuracy = float(correct_predictions_test) / data.num_test
+		test_accuracy = float(correct_predictions_test / data.num_test)
 	else:
 		test_accuracy = 1
+	print("acc data num test",data.num_test)
 	return train_accuracy, vali_accuracy, test_accuracy
 	
-def network_precision(output_char, data, binaryExtraction):
+def network_confusionmatrix(output_char, data, binaryExtraction):
 	'''Determines the precision of a network.
 	P = tp/(tp+fp)
 	
@@ -51,16 +52,30 @@ def network_precision(output_char, data, binaryExtraction):
 	'''
 	tp_train = 0
 	fp_train = 0
+	fn_train = 0
+	tn_train = 0
+
 	tp_vali = 0
 	fp_vali = 0
+	fn_vali = 0
+	tn_vali = 0
+
 	tp_test = 0
 	fp_test = 0
+	fn_test = 0
+	tn_test = 0
+	
+	target_class = output_char[1]
+	
+	if binaryExtraction:
+		if target_class == 0: target_class = -1
+	
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
 		real_value = data.examples[i].class_value
 		if binaryExtraction:
 			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][output_char[1]]
-		if network_value == output_char[1]:
+		network_value = data.examples[i].values[data.network_length-1][1]
+		if network_value == target_class:
 			if real_value == network_value:
 				if i in data.train_indexes:
 					tp_train += 1
@@ -75,6 +90,27 @@ def network_precision(output_char, data, binaryExtraction):
 					fp_vali += 1
 				elif i in data.test_indexes:
 					fp_test += 1
+		else: 
+			if real_value == network_value:
+				if i in data.train_indexes:
+					tn_train += 1
+				elif i in data.vali_indexes:
+					tn_vali += 1
+				elif i in data.test_indexes:
+					tn_test += 1
+			else:
+				if i in data.train_indexes:
+					fn_train += 1
+				elif i in data.vali_indexes:
+					fn_vali += 1
+				elif i in data.test_indexes:
+					fn_test += 1
+	
+	train_conf_mat = [[tp_train,fp_train],[fn_train,tn_train]]
+	vali_conf_mat = [[tp_vali,fp_vali],[fn_vali,tn_vali]]
+	test_conf_mat = [[tp_test,fp_test],[fn_test,tn_test]]
+
+	#Calculates precissions
 	if tp_train+fp_train > 0:
 		train_prec = float(tp_train)/float(tp_train+fp_train)
 	else:
@@ -87,7 +123,43 @@ def network_precision(output_char, data, binaryExtraction):
 		test_prec = float(tp_test)/float(tp_test+fp_test)
 	else:
 		test_prec = 1
-	return train_prec, vali_prec, test_prec
+	
+	#calculates recalls
+	if tp_train+fn_train > 0:
+		train_recall = float(tp_train)/float(tp_train+fn_train)
+	else:
+		train_recall = 1
+	if tp_vali+fn_vali > 0:
+		vali_recall = float(tp_vali)/float(tp_vali+fn_vali)
+	else:
+		vali_recall = 1
+	if tp_test+fn_test > 0:
+		test_recall = float(tp_test)/float(tp_test+fn_test)
+	else:
+		test_recall = 1
+
+	#calculates accuracys
+	if tp_train+fp_train+fn_train+tn_train > 0:
+		acc_train = float(tp_train+tn_train)/float(tp_train+fp_train+fn_train+tn_train)
+	else:
+		acc_train = 0
+	if tp_vali+fp_vali+fn_vali+tn_vali > 0:
+		acc_vali = float(tp_vali+tn_vali)/float(tp_vali+fp_vali+fn_vali+tn_vali)
+	else:
+		acc_vali = 0
+	if tp_test+fp_test+fn_test+tn_test > 0:
+		acc_test = float(tp_test+tn_test)/float(tp_test+fp_test+fn_test+tn_test)
+	else:
+		acc_test = 0
+	print("tp tn test:", tp_test+tn_test )
+	print("conf mat data num test:", tp_test+fp_test+fn_test+tn_test)
+
+	precissions = [train_prec, vali_prec, test_prec]
+	recalls = [train_recall, vali_recall, test_recall]
+	accuracys = [acc_train,acc_vali, acc_test]
+	conf_matrixes =[train_conf_mat, vali_conf_mat, test_conf_mat]
+	
+	return (np.asarray(conf_matrixes), accuracys, precissions, recalls)
 
 def network_recall(output_char, data, binaryExtraction):
 	'''
@@ -107,7 +179,7 @@ def network_recall(output_char, data, binaryExtraction):
 		real_value = data.examples[i].class_value
 		if binaryExtraction:
 			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][output_char[1]]
+		network_value = data.examples[i].values[data.network_length-1][1]
 		if real_value == output_char[1]:
 			if network_value == output_char[1]:
 				if i in data.train_indexes:
@@ -182,15 +254,23 @@ def avg_neuron_deviation_from_center(data, hidden_nodes):
 			deviation += np.std(values)
 	return deviation /float(sum(hidden_nodes))
 	
-def class_accuracy(data, dnf, target_class_index, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
+def class_accuracy(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
 	'''
 	Determines the accuracy of the dnf of different dataset splits with regards to the class value
 	'''
+
+	if binaryExtraction:
+		if target_class_index == 0: target_class_index = -1
 
 	def sign(value):
 		if binaryExtraction:
 			if value == 0: return -1
 			else: return 1 
+		else:
+			return value
+
+	for e in data.get_train_obs():
+		print(e.class_value)
 
 	result = []
 	if t_v:
@@ -211,16 +291,19 @@ def class_accuracy(data, dnf, target_class_index, t_v = True, tr = False, v = Fa
 		result.append(float(consistent)/n_examples)
 	return result
 
-def prediction_fidelity(data, dnf, target_class_index, t_v = True, tr = False, v = False, te = False, binaryExtraction = False):
+def prediction_fidelity(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction = False):
 	'''
 	Determines the fidelity of the dnf of different dataset splits with regards to the predictions of the network
 	'''
 	result = []
 
+	if binaryExtraction:
+		if target_class_index == 0: target_class_index = -1
+
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
-		network_value = data.examples[i].values[data.network_length-1][target_class_index]
+		network_value = data.examples[i].values[data.network_length-1][1]
 		data.examples[i].set_nn_prediction(network_value)
-	
+			
 	if t_v:
 		n_examples = data.num_train + data.num_vali
 		consistent = sum([1 for e in data.get_train_vali_obs() if (target_class_index == e.orig_prediction) == e.fulfills_dnf(dnf)])
@@ -239,22 +322,23 @@ def prediction_fidelity(data, dnf, target_class_index, t_v = True, tr = False, v
 		result.append(float(consistent)/n_examples)
 	return result
 	
-def class_precision(data, dnf, target_class_index, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
+def class_precision(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
 	'''
 	Determines the precision of the dnf of different dataset splits with regards to the class value
 	'''
+
+	if binaryExtraction:
+		if target_class_index == 0: target_class_index = -1
+	
 	def sign(value):
 		if binaryExtraction:
 			if value == 0: return -1
 			else: return 1
 	
 	result = []
-	#for e in data.get_train_obs():
-	#	print(e.fulfills_dnf(dnf))
-
 	if t_v:
-		tp = sum([1 for e in data.get_train_vali_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fp = sum([1 for e in data.get_train_vali_obs() if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf)])
+		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])
+		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])
 		if tp+fp > 0:
 			result.append(float(tp)/float(tp+fp))
 		else:
@@ -267,15 +351,15 @@ def class_precision(data, dnf, target_class_index, t_v = True, tr = False, v = F
 		else:
 			result.append(1)
 	if v:
-		tp = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fp = sum([1 for e in data.get_vali_obs() if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf)])
+		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_vali_obs()])
+		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_vali_obs()])
 		if tp+fp > 0:
 			result.append(float(tp)/float(tp+fp))
 		else:
 			result.append(1)
 	if te:
-		tp = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fp = sum([1 for e in data.get_test_obs() if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf)])
+		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_test_obs()])
+		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_test_obs()])
 		if tp+fp > 0:
 			result.append(float(tp)/float(tp+fp))
 		else:
@@ -294,8 +378,8 @@ def class_recall(data, dnf, target_class_index, t_v = True, tr = False, v = Fals
 
 	result = []
 	if t_v:
-		tp = sum([1 for e in data.get_train_vali_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fn = sum([1 for e in data.get_train_vali_obs() if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf))])
+		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_train_vali_obs()])
 		if tp+fn > 0:
 			result.append(float(tp)/float(tp+fn))
 		else:
@@ -308,15 +392,15 @@ def class_recall(data, dnf, target_class_index, t_v = True, tr = False, v = Fals
 		else:
 			result.append(1)
 	if v:
-		tp = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fn = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf))])
+		tp = sum([1 if ((target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)) else 0 for e in data.get_vali_obs()])
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_vali_obs()])
 		if tp+fn > 0:
 			result.append(float(tp)/float(tp+fn))
 		else:
 			result.append(1)
 	if te:
-		tp = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf)])
-		fn = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf))])
+		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_test_obs()])
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_test_obs()])
 		if tp+fn > 0:
 			result.append(float(tp)/float(tp+fn))
 		else:

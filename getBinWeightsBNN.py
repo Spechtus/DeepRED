@@ -32,7 +32,7 @@ var_to_shape_map = reader.get_variable_to_shape_map()
 var_to_dtype_map = reader.get_variable_to_dtype_map()
 
 for key, value in sorted(var_to_shape_map.items()):
-    matches=["binary_weight"]#edit here for the different tensor outputs
+    matches=["kernel"]#edit here for the different tensor outputs
     if any(x in key for x in matches): 
         #print("tensor: %s (%s) %s" % (key, var_to_dtype_map[key].name, value))
         print("key",key)
@@ -41,10 +41,10 @@ for key, value in sorted(var_to_shape_map.items()):
 
 binary_weights=[None]*4
 
-binary_weights[0]= binarization(reader.get_tensor("dense__binary_layer/binary_weight"),1.0)
-binary_weights[1]= binarization(reader.get_tensor("dense__binary_layer_1/binary_weight"),1.0)
-binary_weights[2]= binarization(reader.get_tensor("dense__binary_layer_2/binary_weight"),1.0)
-binary_weights[3]= binarization(reader.get_tensor("dense__binary_layer_3/binary_weight"),1.0)
+binary_weights[0]= binarization(reader.get_tensor("dense__binary_layer/kernel"),1.0)
+binary_weights[1]= binarization(reader.get_tensor("dense__binary_layer_1/kernel"),1.0)
+binary_weights[2]= binarization(reader.get_tensor("dense__binary_layer_2/kernel"),1.0)
+binary_weights[3]= binarization(reader.get_tensor("dense__binary_layer_3/kernel"),1.0)
 
 save_bin_weights(binary_weights, model_name)
 print(binary_weights)

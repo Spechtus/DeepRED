@@ -2,10 +2,10 @@ import random
 import numpy as np
 import csv
 
-inst = 300
+inst = 500
 inputs = 2
 outputs = 1
-fileName='Q1_300'
+fileName='Q1_500'
 
 data = [0] * inst
 for  i in range(inst):
@@ -16,7 +16,7 @@ def fillData(dataList):
         for i in range(len(dataList)):
                 dataList[i][0]=random.uniform(-1.0,1.0)                                 #Random between -1 and 1
                 dataList[i][1]=random.uniform(-1.0,1.0)                                #Random between -1 and 1
-                if dataList[i][0] >= 0 and dataList[i][1] >= 0: dataList[i][2]=1        #Rule, when Instance is 1
+                if dataList[i][0] > 0 and dataList[i][1] > 0: dataList[i][2]=1        #Rule, when Instance is 1
         print("Done")
 
 def writeData(dataList):

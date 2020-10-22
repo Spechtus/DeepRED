@@ -42,7 +42,7 @@ def train_epoch(X, y, sess, batch_size=100):
     #print("batches:", batches)
     for i in range(batches):
         sess.run([train_kernel_op, train_other_op],
-            feed_dict={ input: X[i*batch_size:(i+1)*batch_size],
+            feed_dict={ x: X[i*batch_size:(i+1)*batch_size],
                         target: y[i*batch_size:(i+1)*batch_size],
                         training: True})
 
@@ -56,6 +56,11 @@ def fully_connect_bn(pre_layer, output_dim, act, use_bias, training, epsilon=1e-
     else:
         output = act(bn)
     return output
+
+def no_scale_dropout(pre_layer, drop_rate, training):
+    drop_layer = tf.compat.v1.layers.dropout(pre_layer, rate=drop_rate, training=training)
+    #return tf.cond(training, lambda: drop_layer*(1-drop_rate), lambda: drop_layer)
+    return drop_layer
 
 def binarization(W, H):
     Wb = H * (2. * np.round( np.clip( (W/H + 1.)/2., 0, 1) ) - 1.)
@@ -162,13 +167,13 @@ num_epochs = 3000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)
-input = tf.compat.v1.placeholder(tf.float32, shape=[None, input_size]) #shape=[None, input_size]
+x = tf.compat.v1.placeholder(tf.float32, shape=[None, input_size]) #shape=[None, input_size]
 target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=[None, output_size]
 
 
 BNN = [None]*layers
 ######### Build BNN ###########
-BNN[0] = fully_connect_bn(input, hidden_layer[0], act=activation, use_bias=True, training=training)
+BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
 BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
 BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
 train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
@@ -176,7 +181,7 @@ train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, tr
 
 #define loss and accuracy
 loss = tf.keras.metrics.squared_hinge(target, train_output)
-accuracy = tf.reduce_mean(input_tensor=tf.cast(tf.equal(tf.argmax(input=train_output, axis=1), tf.argmax(input=target, axis=1)), tf.float32))
+accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax(target, 1)), tf.float32))
 
 
 train_batch_size = 256 #50
@@ -207,25 +212,26 @@ print("batch size = ", train_batch_size)
 t_start = time.clock()
 
 old_acc = 0.0
+train_data, train_label = shuffle(x_train, y_train)
 for j in range(num_epochs):
     if j % (num_epochs/10) == 0:
         print("Epoch nr: ", j)
-    train_data, train_label = shuffle(x_train, y_train)
     train_epoch(train_data, train_label, sess, train_batch_size)
+    train_data, train_label = shuffle(x_train, y_train)
 
     acc_train = 0.0
     loss_train = 0.0
     
-    acc_train += sess.run(accuracy,
+    acc_train = sess.run(accuracy,
                 feed_dict={
-                    input: x_train[:],
-                    target: y_train[:],
+                    x: x_train,
+                    target: y_train,
                     training: False
                 })
     loss_train += sess.run(loss, 
                 feed_dict={
-                    input: x_train[:], 
-                    target: y_train[:], 
+                    x: x_train, 
+                    target: y_train, 
                     training: False})
     
     acc_vali = 0.0
@@ -233,14 +239,14 @@ for j in range(num_epochs):
 
     acc_vali += sess.run(accuracy,
                 feed_dict={
-                    input: x_vali[:],
-                    target: y_vali[:],
+                    x: x_vali,
+                    target: y_vali,
                     training: False
                 })
     loss_vali += sess.run(loss,
                 feed_dict={
-                    input: x_vali[:],
-                    target: y_vali[:],
+                    x: x_vali,
+                    target: y_vali,
                     training: False
                 })
 
@@ -249,14 +255,14 @@ for j in range(num_epochs):
     
     acc_test += sess.run(accuracy,
                 feed_dict={
-                    input: x_test[:],
-                    target: y_test[:],
+                    x: x_test,
+                    target: y_test,
                     training: False
                 })
     loss_test += sess.run(loss, 
                 feed_dict={
-                    input: x_test[:],
-                    target: y_test[:],
+                    x: x_test,
+                    target: y_test,
                     training: False
                 })
 
@@ -284,13 +290,13 @@ activation_values_test = [None]*layers
 
 #get activations
 for j in range(layers-1):
-    activation_values_train[j]= sess.run(BNN[j], feed_dict={input: x_train, training:False})
-    activation_values_vali[j]= sess.run(BNN[j], feed_dict={input: x_vali, training:False})
-    activation_values_test[j]= sess.run(BNN[j], feed_dict={input: x_test, training:False})
+    activation_values_train[j]= sess.run(BNN[j], feed_dict={x: x_train, training:False})
+    activation_values_vali[j]= sess.run(BNN[j], feed_dict={x: x_vali, training:False})
+    activation_values_test[j]= sess.run(BNN[j], feed_dict={x: x_test, training:False})
 
-activation_values_train[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={input: x_train, training:False}),1.0))
-activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={input: x_vali, training:False}),1.0))
-activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={input: x_test, training:False}),1.0))
+activation_values_train[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_train, training:False}),1.0))
+activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_vali, training:False}),1.0))
+activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_test, training:False}),1.0))
 
 #print(activation_values_vali)
 

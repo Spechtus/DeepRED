@@ -17,7 +17,7 @@ import warnings
 from scipy.cluster import vq
 
 
-def build_BNN(data, output_condition, cd = 96, mss = 1, md = 10, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
+def build_BNN(data, output_condition, cd = 96, mss = 1, md = 3, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
 	'''
 	Starting from the target condition and until the conditions with respect 
 	to the first hidden layer, it extracts a DNF that explains each condition
@@ -180,7 +180,7 @@ def relevant_neurons(weights, hidden_nodes, input_len, output_len = 2, binaryExt
 	relevant_neurons_dictionary = {}
 	# The softmax layer should not have nulled out entries
 	if binaryExtraction:
-		relevant_neurons_dictionary[(output_layer, -1)] = range(hidden_nodes[-1])
+		relevant_neurons_dictionary[(output_layer, 0)] = range(hidden_nodes[-1])
 		relevant_neurons_dictionary[(output_layer, 1)] = range(hidden_nodes[-1])
 	else:	
 		relevant_neurons_dictionary[(output_layer, 0)] = range(hidden_nodes[-1])

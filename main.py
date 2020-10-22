@@ -118,7 +118,7 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 
 def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
 	target_class_index, function='tanh', softmax=True, class_dominance=96, 
-	min_set_size=1, dis_config=0, rft_pruning_config=0, rep_pruning_config=1, 
+	min_set_size=1, dis_config=0, rft_pruning_config=0, rep_pruning_config=0, 
 	print_excel_results=False): 
 	'''
 	param dataset_name: name of dataset without .csv
@@ -188,6 +188,7 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	# Determine what neurons are relevant
 	print('relevant neurons dict')
 	rel_neuron_dict = dti.relevant_neurons(weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
+	rel_neuron_dict = {}
 	print(rel_neuron_dict)
 	#print(rel_neuron_dict)
 	print('relevant neurons dict finished')
@@ -238,12 +239,19 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 
 
 	print("Accuracy", ef.network_accuracy(output_condition,data,binary))
-	print("Network Precision:", ef.network_precision(output_condition, data, binary))
-	print("Network Recall:", ef.network_recall(output_condition, data, binary))
+	
+	ConfusionMatrix = ef.network_confusionmatrix(output_condition, data ,binary)
+	print("Network Confusion-Matrices:")
+	print(ConfusionMatrix[0])
+	print("Network Accuracy:", ConfusionMatrix[1])
+	print("Network precissions:", ConfusionMatrix[2])
+	print("Network recall:", ConfusionMatrix[3])
+	
 	print("class accuracy:", ef.class_accuracy(data, bio, target_class_index, False, True, True, True, binary))
 	print("prediction fidelity:", ef.prediction_fidelity(data, bio , target_class_index, False, True, True, True, binary))
 	print("class precision:",ef.class_precision(data, bio, target_class_index, False, True, True, True, binary))
 	print("class recall:",ef.class_recall(data, bio, target_class_index, False, True, True, True, binary))
+	
 	print('Accuracy of DNF:', ef.accuracy_of_dnf(data, output_condition, bio, False, True, True, True))
 	print("Precision of DNF", ef.precision_of_dnf(data, output_condition, bio, False, True, True, True))
 	print("Recall of DNF", ef.recall_of_dnf(data, output_condition, bio, False, True, True, True))
@@ -278,5 +286,5 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 #	init_iterations=3000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='relu')
+extract_model(dataset_name, split_name, model_name, hidden_nodes, 0, function='relu')
 

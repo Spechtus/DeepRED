@@ -1,2 +1,2 @@
-model_checkpoint_path: "nn,12,8,2hidden,sig,TitanicHakank01,70BNN.ckpt"
-all_model_checkpoint_paths: "nn,12,8,2hidden,sig,TitanicHakank01,70BNN.ckpt"
+model_checkpoint_path: "nn,30,16,2hidden,tanh,tic-tac-toeBinary,70BNN.ckpt"
+all_model_checkpoint_paths: "nn,30,16,2hidden,tanh,tic-tac-toeBinary,70BNN.ckpt"

@@ -253,43 +253,6 @@ def avg_neuron_deviation_from_center(data, hidden_nodes):
 			values = data.get_act_all_examples(layer, node)
 			deviation += np.std(values)
 	return deviation /float(sum(hidden_nodes))
-	
-def class_accuracy(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
-	'''
-	Determines the accuracy of the dnf of different dataset splits with regards to the class value
-	'''
-
-	if binaryExtraction:
-		if target_class_index == 0: target_class_index = -1
-
-	def sign(value):
-		if binaryExtraction:
-			if value == 0: return -1
-			else: return 1 
-		else:
-			return value
-
-	for e in data.get_train_obs():
-		print(e.class_value)
-
-	result = []
-	if t_v:
-		n_examples = data.num_train + data.num_vali
-		consistent = sum([1 for e in data.get_train_vali_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
-	if tr:
-		n_examples = data.num_train
-		consistent = sum([1 for e in data.get_train_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
-	if v:
-		n_examples = data.num_vali
-		consistent = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
-	if te:
-		n_examples = data.num_test
-		consistent = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
-	return result
 
 def prediction_fidelity(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction = False):
 	'''
@@ -319,6 +282,43 @@ def prediction_fidelity(data, dnf, target_class_index=1, t_v = True, tr = False,
 	if te:
 		n_examples = data.num_test
 		consistent = sum([1 for e in data.get_test_obs() if (target_class_index == e.orig_prediction) == e.fulfills_dnf(dnf)])
+		result.append(float(consistent)/n_examples)
+	return result
+	
+def class_accuracy(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
+	'''
+	Determines the accuracy of the dnf of different dataset splits with regards to the class value
+	'''
+
+	if binaryExtraction:
+		if target_class_index == 0: target_class_index = -1
+
+	def sign(value):
+		if binaryExtraction:
+			if value == 0: return -1
+			else: return 1 
+		else:
+			return value
+
+	for e in data.get_train_obs():
+		print(e.class_value)
+
+	result = []
+	if t_v:
+		n_examples = data.num_train + data.num_vali
+		consistent = sum([1 for e in data.get_train_vali_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
+		result.append(float(consistent)/n_examples)
+	if tr:
+		n_examples = data.num_train
+		consistent = sum([1 if (target_class_index == e.fulfills_dnf(dnf)) == sign(e.class_value) else 0 for e in data.get_train_obs()])
+		result.append(float(consistent)/n_examples)
+	if v:
+		n_examples = data.num_vali
+		consistent = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
+		result.append(float(consistent)/n_examples)
+	if te:
+		n_examples = data.num_test
+		consistent = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
 		result.append(float(consistent)/n_examples)
 	return result
 	

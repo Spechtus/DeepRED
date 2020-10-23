@@ -157,9 +157,9 @@ def network_confusionmatrix(output_char, data, binaryExtraction):
 	precissions = [train_prec, vali_prec, test_prec]
 	recalls = [train_recall, vali_recall, test_recall]
 	accuracys = [acc_train,acc_vali, acc_test]
-	conf_matrixes =[train_conf_mat, vali_conf_mat, test_conf_mat]
+	conf_matrices =[train_conf_mat, vali_conf_mat, test_conf_mat]
 	
-	return (np.asarray(conf_matrixes), accuracys, precissions, recalls)
+	return (np.asarray(conf_matrices), accuracys, precissions, recalls)
 
 def network_recall(output_char, data, binaryExtraction):
 	'''
@@ -266,7 +266,7 @@ def prediction_fidelity(data, dnf, target_class_index=1, t_v = True, tr = False,
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
 		network_value = data.examples[i].values[data.network_length-1][1]
 		data.examples[i].set_nn_prediction(network_value)
-			
+	
 	if t_v:
 		n_examples = data.num_train + data.num_vali
 		consistent = sum([1 for e in data.get_train_vali_obs() if (target_class_index == e.orig_prediction) == e.fulfills_dnf(dnf)])
@@ -296,12 +296,12 @@ def class_accuracy(data, dnf, target_class_index=1, t_v = True, tr = False, v = 
 	def sign(value):
 		if binaryExtraction:
 			if value == 0: return -1
-			else: return 1 
+			else: return 1
 		else:
 			return value
 
-	for e in data.get_train_obs():
-		print(e.class_value)
+	#for e in data.get_train_obs():
+	#	print(sum([1 if ((target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)) else 0 for e in data.get_train_obs()]))
 
 	result = []
 	if t_v:
@@ -310,19 +310,21 @@ def class_accuracy(data, dnf, target_class_index=1, t_v = True, tr = False, v = 
 		result.append(float(consistent)/n_examples)
 	if tr:
 		n_examples = data.num_train
-		consistent = sum([1 if (target_class_index == e.fulfills_dnf(dnf)) == sign(e.class_value) else 0 for e in data.get_train_obs()])
-		result.append(float(consistent)/n_examples)
+		consistent = sum([1 if ((target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)) else 0 for e in data.get_train_obs()])
+		print(consistent)
+		print(n_examples)
+		result.append(float(consistent)/float(n_examples))
 	if v:
 		n_examples = data.num_vali
-		consistent = sum([1 for e in data.get_vali_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
+		consistent = sum([1 if ((target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)) else 0 for e in data.get_vali_obs()])
+		result.append(float(consistent)/float(n_examples))
 	if te:
 		n_examples = data.num_test
-		consistent = sum([1 for e in data.get_test_obs() if (target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)])
-		result.append(float(consistent)/n_examples)
+		consistent = sum([1 if ((target_class_index == sign(e.class_value)) == e.fulfills_dnf(dnf)) else 0 for e in data.get_test_obs()])
+		result.append(float(consistent)/float(n_examples))
 	return result
 	
-def class_precision(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
+def class_confusionmatrix(data, dnf, target_class_index=1, t_v = True, tr = False, v = False, te = False, binaryExtraction=False):
 	'''
 	Determines the precision of the dnf of different dataset splits with regards to the class value
 	'''
@@ -336,35 +338,88 @@ def class_precision(data, dnf, target_class_index=1, t_v = True, tr = False, v =
 			else: return 1
 	
 	result = []
+	conf_matrices = []
+	accuracys = []
+	precissions = []
+	recalls = []
+
 	if t_v:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])
 		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_train_vali_obs()])
+		tn = sum([1 if (target_class_index != sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_train_vali_obs()])
+		conf_mat_train_vali =[[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_train_vali)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(1)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if tr:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_obs()])
 		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_obs()])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_train_obs()])
+		tn = sum([1 if (target_class_index != sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_train_obs()])
+		conf_mat_train =[[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_train)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if v:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_vali_obs()])
 		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_vali_obs()])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_vali_obs()])
+		tn = sum([1 if (target_class_index != sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_vali_obs()])
+		conf_mat_vali =[[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_vali)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if te:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_test_obs()])
 		fp = sum([1 if (target_class_index != sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_test_obs()])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 if (target_class_index == sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_test_obs()])
+		tn = sum([1 if (target_class_index != sign(e.class_value)) and (not e.fulfills_dnf(dnf)) else 0 for e in data.get_test_obs()])
+		conf_mat_test =[[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_test)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
-	return result
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
+	return (np.asarray(conf_matrices),accuracys,precissions,recalls)
 
 def class_recall(data, dnf, target_class_index, t_v = True, tr = False, v = False, te = False, binaryExtraction = False):
 	'''
@@ -430,40 +485,92 @@ def accuracy_of_dnf(data, key, dnf, t_v = True, tr = False, v = False, te = True
 		result.append(float(consistent)/n_examples)
 	return result
 
-def precision_of_dnf(data, key, dnf, t_v = True, tr = False, v = False, te = True):
+def confusionmatrix_of_dnf(data, key, dnf, t_v = True, tr = False, v = False, te = True):
 	'''
 	Determines the precision of a dnf with respect to its class condition
 	'''
 	result = []
+	conf_matrices = []
+	accuracys = []
+	precissions = []
+	recalls = []
 	if t_v:
 		tp = sum([1 for e in data.get_train_vali_obs() if e.fulfills_cond(key) and e.fulfills_dnf(dnf)])
 		fp = sum([1 for e in data.get_train_vali_obs() if (not e.fulfills_cond(key)) and e.fulfills_dnf(dnf)])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 for e in data.get_train_vali_obs() if e.fulfills_cond(key) and (not e.fulfills_dnf(dnf))])
+		tn = sum([1 for e in data.get_train_vali_obs() if (not e.fulfills_cond(key)) and (not e.fulfills_dnf(dnf))])
+		conf_mat_t_v = [[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_t_v)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if tr:
 		tp = sum([1 for e in data.get_train_obs() if e.fulfills_cond(key) and e.fulfills_dnf(dnf)])
 		fp = sum([1 for e in data.get_train_obs() if (not e.fulfills_cond(key)) and e.fulfills_dnf(dnf)])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 for e in data.get_train_obs() if e.fulfills_cond(key) and (not e.fulfills_dnf(dnf))])
+		tn = sum([1 for e in data.get_train_obs() if (not e.fulfills_cond(key)) and (not e.fulfills_dnf(dnf))])
+		conf_mat_tr = [[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_tr)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if v:
 		tp = sum([1 for e in data.get_vali_obs() if e.fulfills_cond(key) and e.fulfills_dnf(dnf)])
 		fp = sum([1 for e in data.get_vali_obs() if (not e.fulfills_cond(key)) and e.fulfills_dnf(dnf)])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 for e in data.get_vali_obs() if e.fulfills_cond(key) and (not e.fulfills_dnf(dnf))])
+		tn = sum([1 for e in data.get_vali_obs() if (not e.fulfills_cond(key)) and (not e.fulfills_dnf(dnf))])
+		conf_mat_v = [[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_v)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
 	if te:
 		tp = sum([1 for e in data.get_test_obs() if e.fulfills_cond(key) and e.fulfills_dnf(dnf)])
 		fp = sum([1 for e in data.get_test_obs() if (not e.fulfills_cond(key)) and e.fulfills_dnf(dnf)])
-		if tp+fp > 0:
-			result.append(float(tp)/float(tp+fp))
+		fn = sum([1 for e in data.get_test_obs() if e.fulfills_cond(key) and (not e.fulfills_dnf(dnf))])
+		tn = sum([1 for e in data.get_test_obs() if (not e.fulfills_cond(key)) and (not e.fulfills_dnf(dnf))])
+		conf_mat_test = [[tp,fp],[fn,tn]]
+		conf_matrices.append(conf_mat_test)
+		if tp+fp+fn+fp > 0:
+			accuracys.append(float(tp+tn)/float(tp+fp+fn+tn))
 		else:
-			result.append(1)
-	return result
+			accuracys.append(0)
+		if tp+fp > 0:
+			precissions.append(float(tp)/float(tp+fp))
+		else:
+			precissions.append(0)
+		if tp+fn > 0:
+			recalls.append(float(tp)/float(tp+fn))
+		else:
+			recalls.append(1)
+	return (np.asarray(conf_matrices),accuracys,precissions,recalls)
 	
 def recall_of_dnf(data, key, dnf, t_v = True, tr = False, v = False, te = False):
 	'''

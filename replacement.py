@@ -94,7 +94,7 @@ def get_bio(BNN, output_condition, example_cond_dict, dict_indexes, with_data = 
 		print('\nReplaced terms')
 		print('F number rules:',len(f))
 		print('F number terms:',sum(len(r) for r in f))
-		print(f)
+		#print(f)
 		end = time.time()
 		print('TIME: ', end-start)
 		if data:

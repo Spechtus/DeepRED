@@ -57,6 +57,17 @@ def fully_connect_bn(pre_layer, output_dim, act, use_bias, training, epsilon=1e-
         output = act(bn)
     return output
 
+def accuracy_hard(x, one_hot_y, hypothesis):
+    number_examples = len(x)
+    correct = 0
+    for e in range(number_examples):
+        prediction = list(hypothesis[e])
+        actual = list(one_hot_y[e])
+        if actual.index(max(actual)) == prediction.index(max(prediction)):
+            correct += 1
+
+    return float(correct)/float(number_examples)
+
 def no_scale_dropout(pre_layer, drop_rate, training):
     drop_layer = tf.compat.v1.layers.dropout(pre_layer, rate=drop_rate, training=training)
     #return tf.cond(training, lambda: drop_layer*(1-drop_rate), lambda: drop_layer)
@@ -163,7 +174,7 @@ W_LR_scale = "Glorot" # "Glorot" means we are using the coefficients from Glorot
 print("W_LR_scale = "+str(W_LR_scale))
 
 # Training parameters
-num_epochs = 500 #500
+num_epochs = 5000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)
@@ -218,7 +229,7 @@ saver = tf.compat.v1.train.Saver()
 print("batch size = ", train_batch_size)
 
 t_start = time.clock()
-
+epoch = 0
 old_acc = 0.0
 train_data, train_label = shuffle(x_train, y_train)
 for j in range(num_epochs):
@@ -284,9 +295,10 @@ for j in range(num_epochs):
     if acc_train > old_acc:
         old_acc = acc_train
         save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
-        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        print("model saved")
+        epoch = j
+	#print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+        #print("model saved")
 
 saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
 print("Model " + model_name + " restored")
@@ -336,7 +348,7 @@ loss_test += sess.run(loss,
                 training: False
             })
 
-print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (epoch, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
 print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
 
 t_end = time.clock()
@@ -358,7 +370,8 @@ activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output,
 activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_test, training:False}),1.0))
 
 #print(activation_values_vali)
-
+accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
+print("Verification Trainaccuracy:",accuracy_new)
 save_act_train(activation_values_train, model_name)
 save_act_vali(activation_values_vali, model_name)
 save_act_test(activation_values_test, model_name)

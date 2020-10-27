@@ -6,21 +6,21 @@ import numpy as np
 import pickle
 
 tf.compat.v1.disable_eager_execution()
-model_name='nn,4,3,2hidden,relu,Q1_300,70'
+model_name='nn,4,3,2hidden,tanh,Q1_500,70'
 
 def save_bin_weights(weights,name):
     with open('BNN/'+name+'bin_weights.pkl', 'wb') as f:
         pickle.dump(weights, f , pickle.HIGHEST_PROTOCOL)
 
-checkpoint_path = os.path.join("/home/lukas/Uni/AAThesis/DeepRED_v2/BNN/model/", model_name+"BNN.ckpt")
+checkpoint_path = os.path.join("/home/lukas/Uni/AAThesis/ThesisDeepRED/BNN/model/", model_name+"BNN.ckpt")
 print_tensors_in_checkpoint_file(file_name=checkpoint_path, tensor_name='', all_tensors=False)
 
 restore_graph = tf.Graph()
 with restore_graph.as_default():
-    saver = tf.compat.v1.train.import_meta_graph("/home/lukas/Uni/AAThesis/DeepRED_v2/BNN/model/"+model_name+"BNN.ckpt.meta", clear_devices=True)
+    saver = tf.compat.v1.train.import_meta_graph("/home/lukas/Uni/AAThesis/ThesisDeepRED/BNN/model/"+model_name+"BNN.ckpt.meta", clear_devices=True)
 restore_graph_def = restore_graph.as_graph_def()
 sess =  tf.compat.v1.Session(graph=restore_graph)
-saver.restore(sess, "/home/lukas/Uni/AAThesis/DeepRED_v2/BNN/model/"+model_name+"BNN.ckpt")
+saver.restore(sess, "/home/lukas/Uni/AAThesis/ThesisDeepRED/BNN/model/"+model_name+"BNN.ckpt")
 print("Model restored")
 
 def binarization(W, H):

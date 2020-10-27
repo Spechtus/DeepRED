@@ -15,15 +15,15 @@ import numpy as np
 #import weightExtraction as we
 
 
-dataset_name = 'Q1_300'
-split_name = '70b'
+dataset_name = 'Q1_500'
+split_name = '70'
 
-binary=True
+binary=False
 
 full_name = dataset_name +'_'+split_name
 
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,relu,Q1_300,70'
+model_name = 'nn,4,3,2hidden,tanh,Q1_500,70'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -117,8 +117,8 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 # Extract the rule set model
 
 def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
-	target_class_index, function='tanh', softmax=True, class_dominance=96, 
-	min_set_size=1, dis_config=0, rft_pruning_config=0, rep_pruning_config=0, 
+	target_class_index, function='tanh', softmax=True, class_dominance=98, 
+	min_set_size=1, dis_config=0, rft_pruning_config=2, rep_pruning_config=0, 
 	print_excel_results=False): 
 	'''
 	param dataset_name: name of dataset without .csv
@@ -230,8 +230,14 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 		lr.save_bio(bio, dataset_name + '_' + split_name)
 		print('\nBuilt bio')
 		print('Time bio: ', time.time() - t)
-	
+
 	time_end = time.clock()
+
+	print("class dominance:", class_dominance)
+	print("minimim dataset size:", min_set_size)
+	print("rft_pruning option:", rft_pruning_config)
+	print("rep_pruning option:", rep_pruning_config)	
+	print()
 
 	if isinstance(bio, list):
 		print('Number rules:',len(bio))
@@ -243,12 +249,12 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	ConfusionMatrix = ef.network_confusionmatrix(output_condition, data ,binary)
 	print("Network Confusion-Matrices:")
 	print(ConfusionMatrix[0])
-	print("Network Accuracy:", ConfusionMatrix[1])
-	print("Network precissions:", ConfusionMatrix[2])
-	print("Network recall:", ConfusionMatrix[3])
+	print("Network Accuracy:", 		ConfusionMatrix[1])
+	print("Network precissions:", 	ConfusionMatrix[2])
+	print("Network recall:", 		ConfusionMatrix[3])
 	print()
-	print("prediction fidelity:", ef.prediction_fidelity(data, bio , target_class_index, False, True, True, True, binary))
-	print()
+	#print("prediction fidelity:", ef.prediction_fidelity(data, bio , target_class_index, False, True, True, True, binary))
+	#print()
 	#print("class accuracy:", ef.class_accuracy(data, bio, target_class_index, False, True, True, True, binary))
 	ConfusionMatrix_class = ef.class_confusionmatrix(data, bio, target_class_index, False, True, True, True, binary)
 	print("class conf matrices:")
@@ -257,13 +263,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print("class precision:", 	ConfusionMatrix_class[2])
 	print("class recall:",		ConfusionMatrix_class[3])
 	print()
-	print('Accuracy of DNF:', ef.accuracy_of_dnf(data, output_condition, bio, False, True, True, True))
+	#print('Accuracy of DNF:', ef.accuracy_of_dnf(data, output_condition, bio, False, True, True, True))
 	ConfusionMatrix_DNF = ef.confusionmatrix_of_dnf(data, output_condition, bio, False, True, True, True)
 	print("dnf conf matrices:")
 	print(ConfusionMatrix_DNF[0])
-	print("acc of DNF:", ConfusionMatrix_DNF[1])
-	print("Precision of DNF", ConfusionMatrix_DNF[2])
-	print("Recall of DNF", ConfusionMatrix_DNF[3])
+	print("Fidelity:", 			ConfusionMatrix_DNF[1])
+	print("Precision of DNF", 	ConfusionMatrix_DNF[2])
+	print("Recall of DNF", 		ConfusionMatrix_DNF[3])
 	print()
 
 	print('Time for building BNN:', time_end_extraction-time_start)
@@ -292,8 +298,8 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 #set_cv_folds(dataset_name, 3)
 
 #prepare_network(dataset_name, split_name, model_name, hidden_nodes,
-#	init_iterations=3000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#	init_iterations=5000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 0, function='relu')
+extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
 

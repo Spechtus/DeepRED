@@ -20,7 +20,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 		real_value = data.examples[i].class_value
 		if binaryExtraction:
 			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][1]
+		network_value = data.examples[i].values[data.network_length-1][1].round()
 		if real_value == network_value:
 			if i in data.train_indexes:
 				correct_predictions_train += 1
@@ -40,7 +40,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 		test_accuracy = float(correct_predictions_test / data.num_test)
 	else:
 		test_accuracy = 1
-	print("acc data num test",data.num_test)
+	#print("acc data num test",data.num_test)
 	return train_accuracy, vali_accuracy, test_accuracy
 	
 def network_confusionmatrix(output_char, data, binaryExtraction):
@@ -66,6 +66,7 @@ def network_confusionmatrix(output_char, data, binaryExtraction):
 	tn_test = 0
 	
 	target_class = output_char[1]
+	realNetwork = [[],[]]
 	
 	if binaryExtraction:
 		if target_class == 0: target_class = -1
@@ -74,7 +75,9 @@ def network_confusionmatrix(output_char, data, binaryExtraction):
 		real_value = data.examples[i].class_value
 		if binaryExtraction:
 			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][1]
+		realNetwork[0].append(real_value)
+		network_value = data.examples[i].values[data.network_length-1][1].round()
+		realNetwork[1].append(network_value)
 		if network_value == target_class:
 			if real_value == network_value:
 				if i in data.train_indexes:
@@ -106,6 +109,7 @@ def network_confusionmatrix(output_char, data, binaryExtraction):
 				elif i in data.test_indexes:
 					fn_test += 1
 	
+	#print(realNetwork)
 	train_conf_mat = [[tp_train,fp_train],[fn_train,tn_train]]
 	vali_conf_mat = [[tp_vali,fp_vali],[fn_vali,tn_vali]]
 	test_conf_mat = [[tp_test,fp_test],[fn_test,tn_test]]
@@ -151,8 +155,8 @@ def network_confusionmatrix(output_char, data, binaryExtraction):
 		acc_test = float(tp_test+tn_test)/float(tp_test+fp_test+fn_test+tn_test)
 	else:
 		acc_test = 0
-	print("tp tn test:", tp_test+tn_test )
-	print("conf mat data num test:", tp_test+fp_test+fn_test+tn_test)
+	#print("tp tn test:", tp_test+tn_test )
+	#print("conf mat data num test:", tp_test+fp_test+fn_test+tn_test)
 
 	precissions = [train_prec, vali_prec, test_prec]
 	recalls = [train_recall, vali_recall, test_recall]
@@ -264,7 +268,7 @@ def prediction_fidelity(data, dnf, target_class_index=1, t_v = True, tr = False,
 		if target_class_index == 0: target_class_index = -1
 
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
-		network_value = data.examples[i].values[data.network_length-1][1]
+		network_value = data.examples[i].values[data.network_length-1][1].round()
 		data.examples[i].set_nn_prediction(network_value)
 	
 	if t_v:
@@ -336,6 +340,7 @@ def class_confusionmatrix(data, dnf, target_class_index=1, t_v = True, tr = Fals
 		if binaryExtraction:
 			if value == 0: return -1
 			else: return 1
+		else: return value
 	
 	result = []
 	conf_matrices = []

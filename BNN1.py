@@ -102,15 +102,15 @@ def load_y_vali(name):
 		return pickle.load(f)
 
 def save_act_train(act_train, name):
-    with open('BNN/bAct/'+name+'act_train.pkl', 'wb') as f:
+    with open('BNN/bAct/'+name+'act_train1.pkl', 'wb') as f:
         pickle.dump(act_train, f, pickle.HIGHEST_PROTOCOL)
 
 def save_act_test(act_test, name):
-    with open('BNN/bAct/'+name+'act_test.pkl', 'wb') as f:
+    with open('BNN/bAct/'+name+'act_test1.pkl', 'wb') as f:
         pickle.dump(act_test, f, pickle.HIGHEST_PROTOCOL)
 
 def save_act_vali(act_vali, name):
-    with open('BNN/bAct/'+name+'act_vali.pkl', 'wb') as f:
+    with open('BNN/bAct/'+name+'act_vali1.pkl', 'wb') as f:
         pickle.dump(act_vali, f, pickle.HIGHEST_PROTOCOL)
 
 #insert datapipeline here
@@ -174,7 +174,7 @@ W_LR_scale = "Glorot" # "Glorot" means we are using the coefficients from Glorot
 print("W_LR_scale = "+str(W_LR_scale))
 
 # Training parameters
-num_epochs = 500 #500
+num_epochs = 5000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)
@@ -203,7 +203,7 @@ loss = tf.keras.metrics.squared_hinge(target, train_output)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax(target, 1)), tf.float32))
 
 
-train_batch_size = 16 #50
+train_batch_size = 36 #50
 lr_start = 0.001
 lr_end = 0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)
@@ -294,13 +294,13 @@ for j in range(num_epochs):
     
     if acc_train > old_acc:
         old_acc = acc_train
-        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
+        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN1.ckpt")
         epoch = j
 	#print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
         #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
         #print("model saved")
 
-saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
+saver.restore(sess, 'BNN/model/'+model_name+'BNN1.ckpt')
 print("Model " + model_name + " restored")
 
 acc_train = 0.0

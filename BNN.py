@@ -9,7 +9,7 @@ import time
 tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-model_name='nn,4,3,2hidden,relu,Q1_300,70'
+model_name='nn,4,3,2hidden,tanh,Q1_500,70'
 print("modelname= ", model_name)
 
 # A function which shuffles a dataset
@@ -134,7 +134,7 @@ print("- Vali-set:\t\t{}".format(len(x_vali)))
 print("- Test-set:\t\t{}".format(len(x_test)))
 
 # Class in the range -1 OR +1
-#
+
 y_train = np.asarray(y_train)
 y_train[y_train == 0]= -1
 y_train = y_train.tolist()
@@ -184,18 +184,18 @@ target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=
 
 BNN = [None]*layers
 ######### Build BNN ###########
-layer0 = no_scale_dropout(x,drop_rate=0.05, training=training)
+#layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
 
-BNN[0] = fully_connect_bn(layer0, hidden_layer[0], act=activation, use_bias=True, training=training)
-layer1 = no_scale_dropout(BNN[0], drop_rate=0.1, training=training)
+BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
+#layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
 
-BNN[1] = fully_connect_bn(layer1, hidden_layer[1], act=activation, use_bias=True, training=training)
-layer2 = no_scale_dropout(BNN[1],drop_rate=0.1, training=training)
+BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
+#layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
 
-BNN[2] = fully_connect_bn(layer2, hidden_layer[2], act=activation, use_bias=True, training=training)
-layer3 = no_scale_dropout(BNN[2],drop_rate=0.1, training=training)
+BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
+#layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
 
-train_output = fully_connect_bn(layer3, output_size, act=None, use_bias=True, training=training)
+train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
 
 
 #define loss and accuracy
@@ -204,8 +204,8 @@ accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax
 
 
 train_batch_size = 16 #50
-lr_start = 0.001
-lr_end = 0.001
+lr_start =  0.001
+lr_end =    0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)
 global_step1 = tf.Variable(0, trainable=False)
 global_step2 = tf.Variable(0, trainable=False)
@@ -230,75 +230,75 @@ print("batch size = ", train_batch_size)
 
 t_start = time.clock()
 epoch = 0
-old_acc = 0.0
-train_data, train_label = shuffle(x_train, y_train)
-for j in range(num_epochs):
-    if j % (num_epochs/10) == 0:
-        print("Epoch nr: ", j)
-    train_epoch(train_data, train_label, sess, train_batch_size)
-    train_data, train_label = shuffle(x_train, y_train)
-
-    acc_train = 0.0
-    loss_train = 0.0
-    
-    acc_train = sess.run(accuracy,
-                feed_dict={
-                    x: x_train,
-                    target: y_train,
-                    training: False
-                })
-    loss_train += sess.run(loss, 
-                feed_dict={
-                    x: x_train, 
-                    target: y_train, 
-                    training: False})
-    
-    acc_vali = 0.0
-    loss_vali = 0.0
-
-    acc_vali += sess.run(accuracy,
-                feed_dict={
-                    x: x_vali,
-                    target: y_vali,
-                    training: False
-                })
-    loss_vali += sess.run(loss,
-                feed_dict={
-                    x: x_vali,
-                    target: y_vali,
-                    training: False
-                })
-
-    acc_test = 0.0
-    loss_test = 0.0
-    
-    acc_test += sess.run(accuracy,
-                feed_dict={
-                    x: x_test,
-                    target: y_test,
-                    training: False
-                })
-    loss_test += sess.run(loss, 
-                feed_dict={
-                    x: x_test,
-                    target: y_test,
-                    training: False
-                })
-
-    
-
-    if j % (num_epochs/10) == 0:
-        print("Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (acc_train,  acc_vali, acc_test, sess.run(opt._lr)))
-        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        
-    
-    if acc_train > old_acc:
-        old_acc = acc_train
-        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        epoch = j
-	#print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
-        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        #print("model saved")
+#old_acc = 0.0
+#train_data, train_label = shuffle(x_train, y_train)
+#for j in range(num_epochs):
+#    if j % (num_epochs/10) == 0:
+#        print("Epoch nr: ", j)
+#    train_epoch(train_data, train_label, sess, train_batch_size)
+#    train_data, train_label = shuffle(x_train, y_train)
+#
+#    acc_train = 0.0
+#    loss_train = 0.0
+#    
+#    acc_train = sess.run(accuracy,
+#                feed_dict={
+#                    x: x_train,
+#                    target: y_train,
+#                    training: False
+#                })
+#    loss_train += sess.run(loss, 
+#                feed_dict={
+#                    x: x_train, 
+#                    target: y_train, 
+#                    training: False})
+#    
+#    acc_vali = 0.0
+#    loss_vali = 0.0
+#
+#    acc_vali += sess.run(accuracy,
+#                feed_dict={
+#                    x: x_vali,
+#                    target: y_vali,
+#                    training: False
+#                })
+#    loss_vali += sess.run(loss,
+#                feed_dict={
+#                    x: x_vali,
+#                    target: y_vali,
+#                    training: False
+#                })
+#
+#    acc_test = 0.0
+#    loss_test = 0.0
+#    
+#    acc_test += sess.run(accuracy,
+#                feed_dict={
+#                    x: x_test,
+#                    target: y_test,
+#                    training: False
+#                })
+#    loss_test += sess.run(loss, 
+#                feed_dict={
+#                    x: x_test,
+#                    target: y_test,
+#                    training: False
+#                })
+#
+#    
+#
+#    if j % (num_epochs/10) == 0:
+#        print("Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (acc_train,  acc_vali, acc_test, sess.run(opt._lr)))
+#        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+#        
+#    
+#    if acc_train > old_acc:
+#        old_acc = acc_train
+#        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
+#        epoch = j
+#	    #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+#        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+#        #print("model saved")
 
 saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
 print("Model " + model_name + " restored")
@@ -369,9 +369,10 @@ activation_values_train[layers-1]= np.asarray(binarization(sess.run(train_output
 activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_vali, training:False}),1.0))
 activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_test, training:False}),1.0))
 
-#print(activation_values_vali)
+#print(activation_values_train)
 accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
 print("Verification Trainaccuracy:",accuracy_new)
+
 save_act_train(activation_values_train, model_name)
 save_act_vali(activation_values_vali, model_name)
 save_act_test(activation_values_test, model_name)

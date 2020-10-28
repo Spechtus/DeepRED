@@ -12,16 +12,20 @@ def network_accuracy(output_char, data, binaryExtraction):
 	param data -- an instance of DataSet
 	'''
 	print("output_char",output_char)
-	
+	print()
 	correct_predictions_train = 0
 	correct_predictions_vali = 0
 	correct_predictions_test = 0	
+
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
-		real_value = data.examples[i].class_value
-		if binaryExtraction:
-			if real_value == 0: real_value = -1
-		network_value = data.examples[i].values[data.network_length-1][1].round()
-		if real_value == network_value:
+		real_value = data.examples[i].y
+		#real_value = data.examples[i].class_value
+		#if binaryExtraction:
+		#	if real_value == 0: real_value = -1
+		network_value = list(data.examples[i].values[data.network_length-1])
+		if real_value.index(max(real_value)) == network_value.index(max(network_value)):
+		#network_value = data.examples[i].values[data.network_length-1][1].round()
+		#if real_value == network_value:
 			if i in data.train_indexes:
 				correct_predictions_train += 1
 			elif i in data.vali_indexes:
@@ -347,6 +351,9 @@ def class_confusionmatrix(data, dnf, target_class_index=1, t_v = True, tr = Fals
 	accuracys = []
 	precissions = []
 	recalls = []
+
+	#for e in data.get_train_obs():
+	#	print(e.fulfills_dnf(dnf))
 
 	if t_v:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])

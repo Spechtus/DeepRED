@@ -152,7 +152,7 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 	Y_test = tf.compat.v1.placeholder(tf.float32, shape=[len(x_test),output_size])
 
 	keep_prob = tf.compat.v1.placeholder(tf.float32)
-	rate = 1.0 # dropout rate
+	rate = 0.8 # dropout rate
 
 	# Initial weights and bias are set
 	W = [None]*layers
@@ -452,7 +452,7 @@ def execute_network(data, model_name, hidden_nodes, function = 'tanh', softmax=T
 	
 	tf.compat.v1.reset_default_graph()
 
-	return (activation_values_train, activation_values_vali, activation_values_test, weights, bias, acc)
+	return activation_values_train, activation_values_vali, activation_values_test, weights, bias, acc
 	#return accuracy(x_test, y_test, h_test)
 
 def weight_sparseness_pruning(data, model_name, new_model_name, hidden_nodes, iterations, function = 'tanh', softmax = True, accuracy_decrease = 0.01, indexes = [], to_prune=[], together = 1, batch_size = 0, max_non_improvements=2, max_runs=5):

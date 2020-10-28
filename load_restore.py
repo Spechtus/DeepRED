@@ -121,7 +121,7 @@ def load_bin_act_and_weights(name):
 def load_indexes(dataset_name, split_name):
 	if 'cv' in split_name:
 		train = []
-		test = None
+		test = []
 		side = split_name[:2]
 		split = split_name[2:].split('-')
 		folds = [f for f in range(int(split[0])) if not f == int(split[1])]

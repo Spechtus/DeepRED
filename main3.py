@@ -119,7 +119,7 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 
 def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
 	target_class_index, function='tanh', softmax=True, class_dominance=98, 
-	min_set_size=1, dis_config=0, rft_pruning_config=1, rep_pruning_config=1, 
+	min_set_size=1, dis_config=0, rft_pruning_config=1, rep_pruning_config=2, 
 	print_excel_results=False): 
 	'''
 	param dataset_name: name of dataset without .csv
@@ -207,13 +207,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print('BNN extraction')
 	time_start = time.clock()
 	
-	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name + '.pkl'):
-		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name)
+	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name + '3.pkl'):
+		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name+'3')
 		print('\nLoaded BNN, example-condition-dict, indexes')
 	else:
 		t = time.time()
 		BNN = dti.build_BNN(data, output_condition, cd = class_dominance, mss = min_size, relevant_neuron_dictionary = rel_neuron_dict, with_data = rft_pruning_config, discretization = dis_config, cluster_means = None)
-		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name)
+		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name+'3')
 		print('\nBuilt BNN')
 		print('Time BNN: ', time.time() - t)
 		#print(BNN)
@@ -222,13 +222,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	time_end_extraction = time.clock()
 
 	# Extract an expression of an output condition w.r.t the inputs
-	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + '.pkl'):
-		bio = lr.load_bio(dataset_name + '_' + split_name)
+	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + '3.pkl'):
+		bio = lr.load_bio(dataset_name + '_' + split_name+'3')
 		print('\nLoaded bio')
 	else:
 		t= time.time()
 		bio = r.get_bio(BNN, output_condition, data.example_cond_dict, data.dict_indexes, with_data = rep_pruning_config, data=data)
-		lr.save_bio(bio, dataset_name + '_' + split_name)
+		lr.save_bio(bio, dataset_name + '_' + split_name+'3')
 		print('\nBuilt bio')
 		print('Time bio: ', time.time() - t)
 

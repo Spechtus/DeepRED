@@ -399,8 +399,8 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 #	init_iterations=5000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
+#extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
 
-#plotTrainInputs(dataset_name,hidden_nodes)
-#plotAllInputs(dataset_name,hidden_nodes)
+plotTrainInputs(dataset_name,hidden_nodes)
+plotAllInputs(dataset_name,hidden_nodes)
 

@@ -174,7 +174,7 @@ W_LR_scale = "Glorot" # "Glorot" means we are using the coefficients from Glorot
 print("W_LR_scale = "+str(W_LR_scale))
 
 # Training parameters
-num_epochs = 3000 #500
+num_epochs = 5000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)

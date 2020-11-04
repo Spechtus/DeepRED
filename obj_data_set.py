@@ -149,7 +149,7 @@ class Observation:
 		return self.values[split_point[0]][split_point[1]] > split_point[2]
 
 	# A 'condition' has the form (layer, neuron, threshold, operator), 
-	# where operator is False for '<=' and True for '>' 
+	# where operator is 0 for <=', 1 for '>' and 2 for '='
 	def fulfills_cond(self, condition):
 		if isinstance(condition, tuple):
 			bigger = self.values[condition[0]][condition[1]] > condition[2]

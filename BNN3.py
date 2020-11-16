@@ -4,12 +4,12 @@ import binary_layer
 import numpy as np
 import pickle
 import time
-# acc: 86.18%??
+
 
 tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-model_name='nn,6,4,2hidden,tanh,haberman,70'
+model_name='nn,4,3,2hidden,tanh,Q1_500,703'
 print("modelname= ", model_name)
 
 # A function which shuffles a dataset
@@ -17,7 +17,7 @@ def shuffle(X,y):
     #print(len(X))
     shuffle_parts = 1
     chunk_size = int(len(X)/shuffle_parts)
-    shuffled_range = np.arange(chunk_size)
+    shuffled_range = np.arange(chunk_size) 
 
     X_buffer = np.copy(X[0:chunk_size])
     y_buffer = np.copy(y[0:chunk_size])
@@ -57,11 +57,21 @@ def fully_connect_bn(pre_layer, output_dim, act, use_bias, training, epsilon=1e-
         output = act(bn)
     return output
 
+def accuracy_hard(x, one_hot_y, hypothesis):
+    number_examples = len(x)
+    correct = 0
+    for e in range(number_examples):
+        prediction = list(hypothesis[e])
+        actual = list(one_hot_y[e])
+        if actual.index(max(actual)) == prediction.index(max(prediction)):
+            correct += 1
+
+    return float(correct)/float(number_examples)
+
 def no_scale_dropout(pre_layer, drop_rate, training):
     drop_layer = tf.compat.v1.layers.dropout(pre_layer, rate=drop_rate, training=training)
     #return tf.cond(training, lambda: drop_layer*(1-drop_rate), lambda: drop_layer)
     return drop_layer
-
 
 def binarization(W, H):
     Wb = H * (2. * np.round( np.clip( (W/H + 1.)/2., 0, 1) ) - 1.)
@@ -114,7 +124,7 @@ x_vali = load_x_vali(model_name)
 y_vali = load_y_vali(model_name)
 
 input_size = len(x_train[0])
-hidden_layer=[6,4,2]
+hidden_layer=[4,3,2]
 output_size = 2
 layers = len(hidden_layer)+1
 
@@ -125,10 +135,6 @@ print("- Test-set:\t\t{}".format(len(x_test)))
 
 # Class in the range -1 OR +1
 
-y_test = np.asarray(y_test)
-y_test[y_test == 0]= -1
-y_test = y_test.tolist()
-
 y_train = np.asarray(y_train)
 y_train[y_train == 0]= -1
 y_train = y_train.tolist()
@@ -136,6 +142,10 @@ y_train = y_train.tolist()
 y_vali = np.asarray(y_vali)
 y_vali[y_vali == 0]= -1
 y_vali = y_vali.tolist()
+
+y_test = np.asarray(y_test)
+y_test[y_test == 0]= -1
+y_test = y_test.tolist()
 
 #print(y_train)
 #print(y_test)
@@ -164,7 +174,7 @@ W_LR_scale = "Glorot" # "Glorot" means we are using the coefficients from Glorot
 print("W_LR_scale = "+str(W_LR_scale))
 
 # Training parameters
-num_epochs = 3000 #500
+num_epochs = 5000 #500
 print("num_epochs = "+str(num_epochs))
 
 training = tf.compat.v1.placeholder(tf.bool)
@@ -174,9 +184,17 @@ target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=
 
 BNN = [None]*layers
 ######### Build BNN ###########
+#layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
+
 BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
+#layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
+
 BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
+#layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
+
 BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
+#layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
+
 train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
 
 
@@ -186,8 +204,8 @@ accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax
 
 
 train_batch_size = 16 #50
-lr_start = 0.001
-lr_end = 0.000001
+lr_start =  0.001
+lr_end =    0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)
 global_step1 = tf.Variable(0, trainable=False)
 global_step2 = tf.Variable(0, trainable=False)
@@ -211,7 +229,7 @@ saver = tf.compat.v1.train.Saver()
 print("batch size = ", train_batch_size)
 
 t_start = time.clock()
-
+epoch = 0
 old_acc = 0.0
 train_data, train_label = shuffle(x_train, y_train)
 for j in range(num_epochs):
@@ -267,7 +285,6 @@ for j in range(num_epochs):
                     training: False
                 })
 
-
     
 
     if j % (num_epochs/10) == 0:
@@ -278,10 +295,10 @@ for j in range(num_epochs):
     if acc_train > old_acc:
         old_acc = acc_train
         save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+        epoch = j
+	    #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
         #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
         #print("model saved")
-
 saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
 print("Model " + model_name + " restored")
 
@@ -330,7 +347,7 @@ loss_test += sess.run(loss,
                 training: False
             })
 
-print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (epoch, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
 print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
 
 t_end = time.clock()
@@ -351,7 +368,9 @@ activation_values_train[layers-1]= np.asarray(binarization(sess.run(train_output
 activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_vali, training:False}),1.0))
 activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_test, training:False}),1.0))
 
-#print(activation_values_vali)
+#print(activation_values_train)
+accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
+print("Verification Trainaccuracy:",accuracy_new)
 
 save_act_train(activation_values_train, model_name)
 save_act_vali(activation_values_vali, model_name)

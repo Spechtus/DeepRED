@@ -16,15 +16,16 @@ import matplotlib.pyplot as plt
 #import weightExtraction as we
 
 
-dataset_name = 'tic-tac-toeBinary'
+dataset_name = 'Q1_500'
 split_name = '70b'
+nr = '701'
 
 binary=True
 
 full_name = dataset_name +'_'+split_name
 
-hidden_nodes= [30,16,2]
-model_name = 'nn,30,16,2hidden,tanh,tic-tac-toeBinary,70'
+hidden_nodes= [4,3,2]
+model_name = 'nn,4,3,2hidden,tanh,Q1_500,7010'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -62,8 +63,9 @@ def set_split(dataset_name, split_name, percentage):
 	m = int(round(len(test) / 3))
 	vali = test[:m]
 	test = test[m:]
-	lr.save_test_indexes(test, dataset_name, split_name)
-	lr.save_vali_indexes(vali, dataset_name, split_name)
+	lr.save_train_indexes(train, dataset_name, split_name+nr)
+	lr.save_test_indexes(test, dataset_name, split_name+nr)
+	lr.save_vali_indexes(vali, dataset_name, split_name+nr)
 
 def set_cv_folds(dataset_name, k):
 	'''
@@ -392,15 +394,15 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #testindx=list(range(14))
 #set_split_manually(dataset_name, split_name, train_indexes=trainindx, test_indexes=testindx)
 
-#set_split(dataset_name,split_name,70)
+set_split(dataset_name,split_name,70)
 
 #set_cv_folds(dataset_name, 3)
 
 #prepare_network(dataset_name, split_name, model_name, hidden_nodes,
-#	init_iterations=5000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#	init_iterations=1, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
 #extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
 
-plotTrainInputs(dataset_name,hidden_nodes)
-plotAllInputs(dataset_name,hidden_nodes)
+#plotTrainInputs(dataset_name,hidden_nodes)
+#plotAllInputs(dataset_name,hidden_nodes)
 

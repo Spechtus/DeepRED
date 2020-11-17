@@ -107,6 +107,9 @@ def load_vali_split(dataset, train_folds, name):
 	return vali
 
 def load_bin_act_and_weights(name):
+	act_train =[]
+	act_vali= []
+	act_test = []
 	with open('binA/'+name+'act_train.pkl', 'rb') as f:
 		act_train = pickle.load(f)
 	with open('binA/'+name+'act_test.pkl', 'rb') as f:

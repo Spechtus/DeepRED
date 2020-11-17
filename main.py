@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 dataset_name = 'Q1_500'
 split_name = '70b'
-nr = '701'
+nr = '7010'
 
 binary=True
 

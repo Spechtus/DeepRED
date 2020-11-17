@@ -23,6 +23,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 		#if binaryExtraction:
 		#	if real_value == 0: real_value = -1
 		network_value = list(data.examples[i].values[data.network_length-1])
+		#print(real_value, network_value)
 		if real_value.index(max(real_value)) == network_value.index(max(network_value)):
 		#network_value = data.examples[i].values[data.network_length-1][1].round()
 		#if real_value == network_value:

@@ -367,6 +367,7 @@ activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output,
 #print(activation_values_vali)
 accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
 print("Verification Trainaccuracy:",accuracy_new)
+
 save_act_train(activation_values_train, model_name)
 save_act_vali(activation_values_vali, model_name)
 save_act_test(activation_values_test, model_name)

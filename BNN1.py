@@ -184,18 +184,18 @@ target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=
 
 BNN = [None]*layers
 ######### Build BNN ###########
-#layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
+layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
 
-BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
-#layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
+BNN[0] = fully_connect_bn(layer0, hidden_layer[0], act=activation, use_bias=True, training=training)
+layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
 
-BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
-#layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
+BNN[1] = fully_connect_bn(layer1, hidden_layer[1], act=activation, use_bias=True, training=training)
+layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
 
-BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
-#layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
+BNN[2] = fully_connect_bn(layer2, hidden_layer[2], act=activation, use_bias=True, training=training)
+layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
 
-train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
+train_output = fully_connect_bn(layer3, output_size, act=None, use_bias=True, training=training)
 
 
 #define loss and accuracy
@@ -231,7 +231,8 @@ print("batch size = ", train_batch_size)
 t_start = time.clock()
 epoch = 0
 old_acc = 0.0
-train_data, train_label = shuffle(x_train, y_train)
+#train_data, train_label = shuffle(x_train, y_train)
+train_data, train_label = x_train, y_train
 for j in range(num_epochs):
     if j % (num_epochs/10) == 0:
         print("Epoch nr: ", j)

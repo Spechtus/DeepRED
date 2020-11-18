@@ -160,7 +160,6 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print('set splits')
 	train, test = lr.load_indexes(dataset_name, split_name)
 	vali = lr.load_vali_indexes(dataset_name, split_name)
-	print(train,vali,test)
 	data.set_split(train, vali, test)	
 	print('set splits finished')
 
@@ -181,7 +180,7 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	
 	#print("activation_test:",act_test)
 	#print("activation_vali:",act_vali)
-	#print("activation_train:",act_train)
+	print("activation_train:",act_train[0])
 	#print("weights:",weights)
 
 	data.set_act_values(act_train, act_vali, act_test)

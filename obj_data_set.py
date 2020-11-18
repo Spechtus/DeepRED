@@ -60,10 +60,10 @@ class DataSet:
 		'''
 		self.example_cond_dict = {}
 		# If there is no separate validation set, then the post-pruning is performed on the train set
-		#if self.num_vali > 0:
-		#	self.dict_indexes = self.vali_indexes
-		#else:
-		self.dict_indexes = self.train_indexes
+		if self.num_vali > 0:
+			self.dict_indexes = self.vali_indexes
+		else:
+			self.dict_indexes = self.train_indexes
 		self.update_dictionary([(output_condition[0], output_condition[1], output_condition[2])])
 		# The target class value is stored under the same key as the output split point, but with layer index -1
 		self.example_cond_dict[(-1, output_condition[1], output_condition[2])] = [e for e in self.dict_indexes if self.examples[e].class_value == output_condition[1]]

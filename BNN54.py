@@ -289,7 +289,7 @@ for j in range(num_epochs):
         old_acc = acc_train
         save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
         epoch=j
-	#print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+	    #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
         #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
         #print("model saved")
 

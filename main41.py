@@ -161,7 +161,6 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print(split_name)
 	train, test = lr.load_indexes(dataset_name, split_name)
 	vali = lr.load_vali_indexes(dataset_name, split_name)
-	print(train,vali,test)
 	data.set_split(train, vali, test)	
 	print('set splits finished')
 
@@ -173,6 +172,10 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	#print("activation_train:",act_train)
 	#print("weights:",weights)
 
+	act_train=[]
+	act_vali=[]
+	act_test=[]
+
 	if binary:
 		#we.transformWeights(weights,hidden_nodes,data.input_lenght)
 		#we.transformActivations(act_train,act_test,len(train),len(test),hidden_nodes,data.output_neurons)
@@ -182,7 +185,8 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	
 	#print("activation_test:",act_test)
 	#print("activation_vali:",act_vali)
-	#print("activation_train:",act_train)
+	#print(len(act_train))
+	print("activation_train:",act_train[0])
 	#print("weights:",weights)
 
 	data.set_act_values(act_train, act_vali, act_test)
@@ -393,14 +397,14 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #testindx=list(range(14))
 #set_split_manually(dataset_name, split_name, train_indexes=trainindx, test_indexes=testindx)
 
-set_split(dataset_name,split_name+nr,70)
+#set_split(dataset_name,split_name+nr,70)
 
 #set_cv_folds(dataset_name, 3)
 
-prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
+#	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-#extract_model(dataset_name, split_name+nr, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name+nr, model_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

@@ -118,7 +118,7 @@ def load_bin_act_and_weights(name):
 		act_vali = pickle.load(f)
 	with open('binW/'+name+'bin_weights.pkl', 'rb') as f:
 		bin_weights = pickle.load(f)
-	return act_train, act_vali, act_test, bin_weights
+	return (act_train, act_vali, act_test, bin_weights)
 	
 
 def load_indexes(dataset_name, split_name):

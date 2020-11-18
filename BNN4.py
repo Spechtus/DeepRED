@@ -203,7 +203,7 @@ loss = tf.keras.metrics.squared_hinge(target, train_output)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax(target, 1)), tf.float32))
 
 
-train_batch_size = 16 #50
+train_batch_size = 32 #50
 lr_start =  0.001
 lr_end =    0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)

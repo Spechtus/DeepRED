@@ -17,7 +17,7 @@ import warnings
 from scipy.cluster import vq
 
 
-def build_BNN(data, output_condition, cd = 96, mss = 1, md = 4, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
+def build_BNN(data, output_condition, cd = 96, mss = 1, md = 2, relevant_neuron_dictionary = {}, with_data = 1, discretization = 0, cluster_means = None):
 	'''
 	Starting from the target condition and until the conditions with respect 
 	to the first hidden layer, it extracts a DNF that explains each condition

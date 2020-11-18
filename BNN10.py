@@ -63,7 +63,9 @@ def accuracy_hard(x, one_hot_y, hypothesis):
     for e in range(number_examples):
         prediction = list(hypothesis[e])
         actual = list(one_hot_y[e])
+        #print(str(e) + ' actual: ' + str(actual) + ' prediction: ' +str(prediction))
         if actual.index(max(actual)) == prediction.index(max(prediction)):
+            #print(e)
             correct += 1
 
     return float(correct)/float(number_examples)
@@ -184,18 +186,18 @@ target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=
 
 BNN = [None]*layers
 ######### Build BNN ###########
-layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
+#layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
 
-BNN[0] = fully_connect_bn(layer0, hidden_layer[0], act=activation, use_bias=True, training=training)
-layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
+BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
+#layer1 = no_scale_dropout(BNN[0], drop_rate=0.3, training=training)
 
-BNN[1] = fully_connect_bn(layer1, hidden_layer[1], act=activation, use_bias=True, training=training)
-layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
+BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
+#layer2 = no_scale_dropout(BNN[1],drop_rate=0.3, training=training)
 
-BNN[2] = fully_connect_bn(layer2, hidden_layer[2], act=activation, use_bias=True, training=training)
-layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
+BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
+#layer3 = no_scale_dropout(BNN[2],drop_rate=0.3, training=training)
 
-train_output = fully_connect_bn(layer3, output_size, act=None, use_bias=True, training=training)
+train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
 
 
 #define loss and accuracy
@@ -203,7 +205,7 @@ loss = tf.keras.metrics.squared_hinge(target, train_output)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(train_output, 1), tf.argmax(target, 1)), tf.float32))
 
 
-train_batch_size = 16 #50
+train_batch_size = 32 #50
 lr_start =  0.001
 lr_end =    0.001
 lr_decay = (lr_end / lr_start)**(1. / num_epochs)
@@ -363,6 +365,7 @@ for j in range(layers-1):
     activation_values_train[j]= sess.run(BNN[j], feed_dict={x: x_train, training:False})
     activation_values_vali[j]= sess.run(BNN[j], feed_dict={x: x_vali, training:False})
     activation_values_test[j]= sess.run(BNN[j], feed_dict={x: x_test, training:False})
+    print(j)
 
 activation_values_train[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_train, training:False}),1.0))
 activation_values_vali[layers-1]= np.asarray(binarization(sess.run(train_output, feed_dict={x: x_vali, training:False}),1.0))
@@ -372,6 +375,7 @@ activation_values_test[layers-1]= np.asarray(binarization(sess.run(train_output,
 accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
 print("Verification Trainaccuracy:",accuracy_new)
 
+print(activation_values_train[0])
 save_act_train(activation_values_train, model_name)
 save_act_vali(activation_values_vali, model_name)
 save_act_test(activation_values_test, model_name)

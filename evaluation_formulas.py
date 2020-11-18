@@ -16,7 +16,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 	correct_predictions_train = 0
 	correct_predictions_vali = 0
 	correct_predictions_test = 0	
-
+	cntr=0
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
 		real_value = data.examples[i].y
 		#real_value = data.examples[i].class_value
@@ -24,15 +24,18 @@ def network_accuracy(output_char, data, binaryExtraction):
 		#	if real_value == 0: real_value = -1
 		network_value = list(data.examples[i].values[data.network_length-1])
 		#print(real_value, network_value)
+		#if cntr < 350: print(str(i)+ ' with index '+ str(cntr) +' actual: '+str(real_value)+' prediction: '+str(network_value))
 		if real_value.index(max(real_value)) == network_value.index(max(network_value)):
 		#network_value = data.examples[i].values[data.network_length-1][1].round()
 		#if real_value == network_value:
 			if i in data.train_indexes:
+				#print(str(i) + ' has the index ' + str(data.train_indexes.index(i)))
 				correct_predictions_train += 1
 			elif i in data.vali_indexes:
 				correct_predictions_vali += 1
 			elif i in data.test_indexes:
 				correct_predictions_test += 1
+		cntr += 1
 	if data.num_train > 0:
 		train_accuracy = float(correct_predictions_train / data.num_train)
 	else:
@@ -47,7 +50,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 		test_accuracy = 1
 	#print("acc data num test",data.num_test)
 	return train_accuracy, vali_accuracy, test_accuracy
-	
+
 def network_confusionmatrix(output_char, data, binaryExtraction):
 	'''Determines the precision of a network.
 	P = tp/(tp+fp)

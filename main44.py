@@ -5,7 +5,7 @@ import deep_nn_keep_training_polarize as ktp
 import deep_nn_execute_stored as dnnes
 import evaluation_formulas as ef
 from obj_data_set import DataSet
-import decision_tree_induction as dti
+import decision_tree_induction4 as dti
 import printer
 import replacement as r
 import time
@@ -16,15 +16,16 @@ import matplotlib.pyplot as plt
 #import weightExtraction as we
 
 
-dataset_name = 'tic-tac-toeBinary'
+dataset_name = 'Q1_500'
 split_name = '70b'
+nr='704'
 
 binary=True
 
 full_name = dataset_name +'_'+split_name
 
-hidden_nodes= [30,16,2]
-model_name = 'nn,30,16,2hidden,tanh,tic-tac-toeBinary,70'
+hidden_nodes= [4,3,2]
+model_name = 'nn,4,3,2hidden,tanh,Q1_500,704'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -179,7 +180,7 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	
 	#print("activation_test:",act_test)
 	#print("activation_vali:",act_vali)
-	print("activation_train:",act_train[3][660:])
+	#print("activation_train:",act_train)
 	#print("weights:",weights)
 
 	data.set_act_values(act_train, act_vali, act_test)
@@ -207,13 +208,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print('BNN extraction')
 	time_start = time.clock()
 	
-	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name + '4.pkl'):
-		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name+'4')
+	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name +'.pkl'):
+		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name)
 		print('\nLoaded BNN, example-condition-dict, indexes')
 	else:
 		t = time.time()
 		BNN = dti.build_BNN(data, output_condition, cd = class_dominance, mss = min_size, relevant_neuron_dictionary = rel_neuron_dict, with_data = rft_pruning_config, discretization = dis_config, cluster_means = None)
-		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name+'4')
+		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name)
 		print('\nBuilt BNN')
 		print('Time BNN: ', time.time() - t)
 		#print(BNN)
@@ -222,13 +223,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	time_end_extraction = time.clock()
 
 	# Extract an expression of an output condition w.r.t the inputs
-	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + '4.pkl'):
-		bio = lr.load_bio(dataset_name + '_' + split_name+'4')
+	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name +'.pkl'):
+		bio = lr.load_bio(dataset_name + '_' + split_name)
 		print('\nLoaded bio')
 	else:
 		t= time.time()
 		bio = r.get_bio(BNN, output_condition, data.example_cond_dict, data.dict_indexes, with_data = rep_pruning_config, data=data)
-		lr.save_bio(bio, dataset_name + '_' + split_name+'4')
+		lr.save_bio(bio, dataset_name + '_' + split_name)
 		print('\nBuilt bio')
 		print('Time bio: ', time.time() - t)
 
@@ -392,14 +393,14 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #testindx=list(range(14))
 #set_split_manually(dataset_name, split_name, train_indexes=trainindx, test_indexes=testindx)
 
-#set_split(dataset_name,split_name,70)
+#set_split(dataset_name,split_name+nr,70)
 
 #set_cv_folds(dataset_name, 3)
 
-#prepare_network(dataset_name, split_name, model_name, hidden_nodes,
-#	init_iterations=5000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
+#	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name+nr, model_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

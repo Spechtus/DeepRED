@@ -10,6 +10,9 @@ tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 model_name='nn,4,3,2hidden,tanh,Q1_500,701'
+data_name='nn,4,3,2hidden,tanh,Q1_500,701'
+
+
 print("modelname= ", model_name)
 
 # A function which shuffles a dataset

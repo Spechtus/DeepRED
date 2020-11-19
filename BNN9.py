@@ -10,6 +10,9 @@ tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 model_name='nn,4,3,2hidden,tanh,Q1_500,709'
+these='1'
+data_name='nn,4,3,2hidden,tanh,Q1_500,701'
+
 print("modelname= ", model_name)
 
 # A function which shuffles a dataset
@@ -116,14 +119,14 @@ def save_act_vali(act_vali, name):
         pickle.dump(act_vali, f, pickle.HIGHEST_PROTOCOL)
 
 #insert datapipeline here
-x_train = load_x_train(model_name)
-y_train = load_y_train(model_name)
+x_train = load_x_train(data_name)
+y_train = load_y_train(data_name)
 
-x_test = load_x_test(model_name)
-y_test = load_y_test(model_name)
+x_test = load_x_test(data_name)
+y_test = load_y_test(data_name)
 
-x_vali = load_x_vali(model_name)
-y_vali = load_y_vali(model_name)
+x_vali = load_x_vali(data_name)
+y_vali = load_y_vali(data_name)
 
 input_size = len(x_train[0])
 hidden_layer=[4,3,2]
@@ -233,74 +236,74 @@ print("batch size = ", train_batch_size)
 t_start = time.clock()
 epoch = 0
 old_acc = 0.0
-train_data, train_label = shuffle(x_train, y_train)
-for j in range(num_epochs):
-    if j % (num_epochs/10) == 0:
-        print("Epoch nr: ", j)
-    train_epoch(train_data, train_label, sess, train_batch_size)
-    train_data, train_label = shuffle(x_train, y_train)
-
-    acc_train = 0.0
-    loss_train = 0.0
-    
-    acc_train = sess.run(accuracy,
-                feed_dict={
-                    x: x_train,
-                    target: y_train,
-                    training: False
-                })
-    loss_train += sess.run(loss, 
-                feed_dict={
-                    x: x_train, 
-                    target: y_train, 
-                    training: False})
-    
-    acc_vali = 0.0
-    loss_vali = 0.0
-
-    acc_vali += sess.run(accuracy,
-                feed_dict={
-                    x: x_vali,
-                    target: y_vali,
-                    training: False
-                })
-    loss_vali += sess.run(loss,
-                feed_dict={
-                    x: x_vali,
-                    target: y_vali,
-                    training: False
-                })
-
-    acc_test = 0.0
-    loss_test = 0.0
-    
-    acc_test += sess.run(accuracy,
-                feed_dict={
-                    x: x_test,
-                    target: y_test,
-                    training: False
-                })
-    loss_test += sess.run(loss, 
-                feed_dict={
-                    x: x_test,
-                    target: y_test,
-                    training: False
-                })
-
-    
-
-    if j % (num_epochs/10) == 0:
-        print("Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (acc_train,  acc_vali, acc_test, sess.run(opt._lr)))
-        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        
-    
-    if acc_train > old_acc:
-        old_acc = acc_train
-        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
-        epoch = j
-	    #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
-        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
-        #print("model saved")
+#train_data, train_label = shuffle(x_train, y_train)
+#for j in range(num_epochs):
+#    if j % (num_epochs/10) == 0:
+#        print("Epoch nr: ", j)
+#    train_epoch(train_data, train_label, sess, train_batch_size)
+#    train_data, train_label = shuffle(x_train, y_train)
+#
+#    acc_train = 0.0
+#    loss_train = 0.0
+#    
+#    acc_train = sess.run(accuracy,
+#                feed_dict={
+#                    x: x_train,
+#                    target: y_train,
+#                    training: False
+#                })
+#    loss_train += sess.run(loss, 
+#                feed_dict={
+#                    x: x_train, 
+#                    target: y_train, 
+#                    training: False})
+#    
+#    acc_vali = 0.0
+#    loss_vali = 0.0
+#
+#    acc_vali += sess.run(accuracy,
+#                feed_dict={
+#                    x: x_vali,
+#                    target: y_vali,
+#                    training: False
+#                })
+#    loss_vali += sess.run(loss,
+#                feed_dict={
+#                    x: x_vali,
+#                    target: y_vali,
+#                    training: False
+#                })
+#
+#    acc_test = 0.0
+#    loss_test = 0.0
+#    
+#    acc_test += sess.run(accuracy,
+#                feed_dict={
+#                    x: x_test,
+#                    target: y_test,
+#                    training: False
+#                })
+#    loss_test += sess.run(loss, 
+#                feed_dict={
+#                    x: x_test,
+#                    target: y_test,
+#                    training: False
+#                })
+#
+#    
+#
+#    if j % (num_epochs/10) == 0:
+#        print("Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (acc_train,  acc_vali, acc_test, sess.run(opt._lr)))
+#        print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+#        
+#    
+#    if acc_train > old_acc:
+#        old_acc = acc_train
+#        save_path = saver.save(sess, "BNN/model/"+model_name+"BNN.ckpt")
+#        epoch = j
+#	    #print("Epoch: %g, Train_acc: %g, Vali_acc: %g, Test_acc: %g, lr: %g" % (j, acc_train, acc_vali, acc_test, sess.run(opt._lr)))
+#        #print("Trainloss: %g, Valiloss: %g, Testloss: %g" % (loss_train[0], loss_vali[0], loss_test[0]))
+#        #print("model saved")
 saver.restore(sess, 'BNN/model/'+model_name+'BNN.ckpt')
 print("Model " + model_name + " restored")
 
@@ -376,6 +379,6 @@ accuracy_new = accuracy_hard(x_train,y_train,activation_values_train[layers-1])
 print("Verification Trainaccuracy:",accuracy_new)
 
 print(activation_values_train[0])
-save_act_train(activation_values_train, model_name)
-save_act_vali(activation_values_vali, model_name)
-save_act_test(activation_values_test, model_name)
+save_act_train(activation_values_train, model_name+these)
+save_act_vali(activation_values_vali, model_name+these)
+save_act_test(activation_values_test, model_name+these)

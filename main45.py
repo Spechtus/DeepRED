@@ -392,14 +392,14 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #testindx=list(range(14))
 #set_split_manually(dataset_name, split_name, train_indexes=trainindx, test_indexes=testindx)
 
-set_split(dataset_name,split_name+nr,70)
+#set_split(dataset_name,split_name+nr,70)
 
 #set_cv_folds(dataset_name, 3)
 
-prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
+#	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-#extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name+nr, model_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

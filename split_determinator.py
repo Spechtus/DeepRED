@@ -53,7 +53,7 @@ def split_maintaining_class(dataset, percentage, test_indexes = None):
 	train = []
 	test = []
 	for c in examples:
-		random.seed(7010)
+		random.seed(705)
 		random.shuffle(c)
 		total = len(c)		
 		for_train = int(round((float(total) * int(percentage))/100))

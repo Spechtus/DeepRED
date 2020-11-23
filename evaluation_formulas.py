@@ -17,6 +17,7 @@ def network_accuracy(output_char, data, binaryExtraction):
 	correct_predictions_vali = 0
 	correct_predictions_test = 0	
 	cntr=0
+	print(len(data.train_indexes))
 	for i in data.train_indexes + data.vali_indexes + data.test_indexes:
 		real_value = data.examples[i].y
 		#real_value = data.examples[i].class_value
@@ -358,6 +359,8 @@ def class_confusionmatrix(data, dnf, target_class_index=1, t_v = True, tr = Fals
 
 	#for e in data.get_train_obs():
 	#	print(e.fulfills_dnf(dnf))
+
+	print(len(data.get_train_obs()))
 
 	if t_v:
 		tp = sum([1 if (target_class_index == sign(e.class_value)) and e.fulfills_dnf(dnf) else 0 for e in data.get_train_vali_obs()])

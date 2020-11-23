@@ -152,7 +152,7 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 	Y_test = tf.compat.v1.placeholder(tf.float32, shape=[len(x_test),output_size])
 
 	keep_prob = tf.compat.v1.placeholder(tf.float32)
-	rate = 0.5 # dropout rate
+	rate = 1.0 # dropout rate
 
 	# Initial weights and bias are set
 	W = [None]*layers
@@ -254,7 +254,9 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 	sess.run(init)
 
 	t_start = time.clock()
-	
+	acc = 0.0
+
+
 	for i in range(iterations):
 		x_train, y_train = x, y
 		if batch_size > 0:
@@ -262,6 +264,14 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 			x_train = [e for (j, e) in enumerate(x) if j in batch_indexes]
 			y_train = [e for (j, e) in enumerate(y) if j in batch_indexes]
 		sess.run(train_step, feed_dict={X_train: x_train, Y_train: y_train, keep_prob: rate}) #ADDED rate for TF v2
+		
+		h_train = sess.run(Hypothesis_train, feed_dict={X_train: x_train, keep_prob: rate}) #ADDED rate for TF v2
+		new_acc = accuracy(x_train, y_train, h_train)
+		if new_acc > acc:
+			acc = new_acc
+			print(new_acc)
+			save_path = saver.save(sess, 'models/'+model_name+'.ckpt')
+		
 		if (i % (iterations/10) == 0) or (i + 1 == iterations):
 			print('EPOCH ', i)
 
@@ -287,7 +297,7 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 
 
 	# Save the variables to disk
-	save_path = saver.save(sess, 'models/'+model_name+'.ckpt')
+	#save_path = saver.save(sess, 'models/'+model_name+'.ckpt')
 	print("Model saved in file: %s" % save_path)
 
 	t_end = time.clock()

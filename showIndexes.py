@@ -3,7 +3,7 @@ import arff as arff
 import numpy as np
 import csv
 
-dataset_name = 'Q1_500'
+dataset_name = 'Q13_500'
 split_name = '70'
 
 name = dataset_name + '_' + split_name

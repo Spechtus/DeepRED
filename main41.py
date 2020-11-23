@@ -16,16 +16,15 @@ import matplotlib.pyplot as plt
 #import weightExtraction as we
 
 
-dataset_name = 'Q1_500'
+dataset_name = 'Q13_500'
 split_name = '70b'
 nr='701'
-
+objname='NN'
 binary=True
-
 full_name = dataset_name +'_'+split_name
-
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,tanh,Q1_500,701'
+model_name = 'nn,4,3,2hidden,tanh,Q13_500,701NN'
+activations_name='nn,4,3,2hidden,tanh,Q13_500,701NN'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -118,14 +117,14 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 
 # Extract the rule set model
 
-def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
+def extract_model(dataset_name, split_name, activations_name, hidden_nodes, 
 	target_class_index, function='tanh', softmax=True, class_dominance=98, 
 	min_set_size=1, dis_config=0, rft_pruning_config=2, rep_pruning_config=2, 
 	print_excel_results=False): 
 	'''
 	param dataset_name: name of dataset without .csv
 	param split_name: name of the split
-	param model_name: name of the network model
+	param activations_name: name of the network model
 	param hidden_nodes: number of nodes on each hidden layer, as 
 		[3, 4, 4] for a network with three hidden layers
 	param target_class_index: class for which rules will be extracted
@@ -161,7 +160,10 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print(split_name)
 	train, test = lr.load_indexes(dataset_name, split_name)
 	vali = lr.load_vali_indexes(dataset_name, split_name)
-	data.set_split(train, vali, test)	
+
+	#train = train[:250] + train[300:]
+	print(len(train))
+	data.set_split(train, vali, test)
 	print('set splits finished')
 
 	# Get activation values and parameters
@@ -172,29 +174,33 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	#print("activation_train:",act_train)
 	#print("weights:",weights)
 
-	act_train=[]
-	act_vali=[]
-	act_test=[]
-
 	if binary:
 		#we.transformWeights(weights,hidden_nodes,data.input_lenght)
 		#we.transformActivations(act_train,act_test,len(train),len(test),hidden_nodes,data.output_neurons)
 		#we.saveWA(weights,act_train,act_test,full_name)
 		print("get BNN Activations and Weights")
-		act_train, act_vali, act_test, weights = lr.load_bin_act_and_weights(model_name)
+		act_train, act_vali, act_test = lr.load_bin_act_and_weights(activations_name)
 	
 	#print("activation_test:",act_test)
 	#print("activation_vali:",act_vali)
 	#print(len(act_train))
-	print("activation_train:",act_train[0])
+	#print("activation_train:",act_train)
 	#print("weights:",weights)
+
+	#for i in range(4):
+	#	
+	#	act_train1 = act_train[i][:250]
+	#	act_train2 = act_train[i][300:]
+	#	act_train[i] = np.vstack((act_train1,act_train2))
+	#print(len(act_train[3]))
+
 
 	data.set_act_values(act_train, act_vali, act_test)
 
 	print('execute network finished')
 	# Determine what neurons are relevant
 	print('relevant neurons dict')
-	#rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
+	rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
 	rel_neuron_dict = {}
 	print(rel_neuron_dict)
 	#print(rel_neuron_dict)
@@ -213,13 +219,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	print('BNN extraction')
 	time_start = time.clock()
 	
-	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name +'.pkl'):
-		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name)
+	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name +objname+'.pkl'):
+		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name+objname)
 		print('\nLoaded BNN, example-condition-dict, indexes')
 	else:
 		t = time.time()
 		BNN = dti.build_BNN(data, output_condition, cd = class_dominance, mss = min_size, relevant_neuron_dictionary = rel_neuron_dict, with_data = rft_pruning_config, discretization = dis_config, cluster_means = None)
-		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name)
+		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name+objname)
 		print('\nBuilt BNN')
 		print('Time BNN: ', time.time() - t)
 		#print(BNN)
@@ -228,13 +234,13 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	time_end_extraction = time.clock()
 
 	# Extract an expression of an output condition w.r.t the inputs
-	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + '.pkl'):
-		bio = lr.load_bio(dataset_name + '_' + split_name)
+	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name+objname+'.pkl'):
+		bio = lr.load_bio(dataset_name + '_' + split_name+objname)
 		print('\nLoaded bio')
 	else:
 		t= time.time()
 		bio = r.get_bio(BNN, output_condition, data.example_cond_dict, data.dict_indexes, with_data = rep_pruning_config, data=data)
-		lr.save_bio(bio, dataset_name + '_' + split_name)
+		lr.save_bio(bio, dataset_name + '_' + split_name+objname)
 		print('\nBuilt bio')
 		print('Time bio: ', time.time() - t)
 
@@ -249,6 +255,8 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	if isinstance(bio, list):
 		print('Number rules:',len(bio))
 		print('Number terms:',sum(len(r) for r in bio))	
+
+	#print('DNF gespeichert in:  obj/bio_' +objname+'.pkl')
 	
 	print("Accuracy", ef.network_accuracy(output_condition, data, binary))
 	
@@ -402,9 +410,9 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #set_cv_folds(dataset_name, 3)
 
 #prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-#	init_iterations=5, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#	init_iterations=6000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-extract_model(dataset_name, split_name+nr, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

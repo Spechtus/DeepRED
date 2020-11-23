@@ -9,8 +9,8 @@ import time
 tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-model_name='nn,4,3,2hidden,tanh,Q13_500,702NN'
-data_name='nn,4,3,2hidden,tanh,Q13_500,702'
+model_name='nn,4,3,2hidden,tanh,Q13_500,704NN'
+data_name='nn,4,3,2hidden,tanh,Q13_500,704'
 
 
 print("modelname= ", model_name)
@@ -189,18 +189,18 @@ target = tf.compat.v1.placeholder(tf.float32, shape=[None, output_size]) #shape=
 
 BNN = [None]*layers
 ######### Build BNN ###########
-layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
+#layer0 = no_scale_dropout(x,drop_rate=0.1, training=training)
 
-BNN[0] = fully_connect_bn(layer0, hidden_layer[0], act=activation, use_bias=True, training=training)
-layer1 = no_scale_dropout(BNN[0], drop_rate=0.8, training=training)
+BNN[0] = fully_connect_bn(x, hidden_layer[0], act=activation, use_bias=True, training=training)
+#layer1 = no_scale_dropout(BNN[0], drop_rate=0.8, training=training)
 
-BNN[1] = fully_connect_bn(layer1, hidden_layer[1], act=activation, use_bias=True, training=training)
-layer2 = no_scale_dropout(BNN[1],drop_rate=0.8, training=training)
+BNN[1] = fully_connect_bn(BNN[0], hidden_layer[1], act=activation, use_bias=True, training=training)
+#layer2 = no_scale_dropout(BNN[1],drop_rate=0.8, training=training)
 
-BNN[2] = fully_connect_bn(layer2, hidden_layer[2], act=activation, use_bias=True, training=training)
-layer3 = no_scale_dropout(BNN[2],drop_rate=0.8, training=training)
+BNN[2] = fully_connect_bn(BNN[1], hidden_layer[2], act=activation, use_bias=True, training=training)
+#layer3 = no_scale_dropout(BNN[2],drop_rate=0.8, training=training)
 
-train_output = fully_connect_bn(layer3, output_size, act=None, use_bias=True, training=training)
+train_output = fully_connect_bn(BNN[2], output_size, act=None, use_bias=True, training=training)
 
 
 #define loss and accuracy

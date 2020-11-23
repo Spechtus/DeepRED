@@ -18,13 +18,13 @@ import matplotlib.pyplot as plt
 
 dataset_name = 'Q13_500'
 split_name = '70b'
-nr='701'
-objname='NN'
+nr='705'
+objname='BNN'
 binary=True
 full_name = dataset_name +'_'+split_name
 hidden_nodes= [4,3,2]
 model_name = 'nn,4,3,2hidden,tanh,Q13_500,701NN'
-activations_name='nn,4,3,2hidden,tanh,Q13_500,701NN'
+activations_name='nn,4,3,2hidden,tanh,Q13_500,705'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -200,7 +200,7 @@ def extract_model(dataset_name, split_name, activations_name, hidden_nodes,
 	print('execute network finished')
 	# Determine what neurons are relevant
 	print('relevant neurons dict')
-	rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
+	#rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
 	rel_neuron_dict = {}
 	print(rel_neuron_dict)
 	#print(rel_neuron_dict)

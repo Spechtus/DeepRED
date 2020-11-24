@@ -152,7 +152,7 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 	Y_test = tf.compat.v1.placeholder(tf.float32, shape=[len(x_test),output_size])
 
 	keep_prob = tf.compat.v1.placeholder(tf.float32)
-	rate = 1.0 # dropout rate
+	rate = 0.8 # dropout rate
 
 	# Initial weights and bias are set
 	W = [None]*layers
@@ -463,6 +463,119 @@ def execute_network(data, model_name, hidden_nodes, function = 'tanh', softmax=T
 	tf.compat.v1.reset_default_graph()
 
 	return activation_values_train, activation_values_vali, activation_values_test, weights, bias, acc
+	#return accuracy(x_test, y_test, h_test)
+
+def execute_network_plot(x, y, model_name, hidden_nodes, function = 'tanh', softmax=True):
+	'''
+	Executes a saved model, can be used to return parameters
+	'''
+	#stack x coordinate and y coordinate
+	x_train = np.column_stack((x,y))
+	y_train = [None] * len(x_train)
+
+	#fill y
+	for i in range(len(x_train)):
+		if x_train[i][0] > 0 and x_train[i][1] > 0: y_train[i] = [0,1]
+		else: y_train[i] = [1,0]
+
+	input_size = len(x_train[0])
+	output_size = 2
+	
+	layers = len(hidden_nodes)+1
+	
+	X_train = tf.compat.v1.placeholder(tf.float32, shape=[len(x_train),input_size])
+	Y_train = tf.compat.v1.placeholder(tf.float32, shape=[len(x_train),output_size])
+	
+	# Initial weights and bias are set
+	W = [None]*layers
+	B = [None]*layers
+	W[0] = init_weights([input_size, hidden_nodes[0]], 0)
+	W[layers-1] = init_weights([hidden_nodes[layers-2], output_size], layers-1)
+	B[0] = init_bias(hidden_nodes[0], 0)
+	B[layers-1] = init_bias(output_size, layers-1)
+	for i in range(layers-2):
+		W[i+1] = init_weights([hidden_nodes[i], hidden_nodes[i+1]], i+1)
+		B[i+1] = init_bias(hidden_nodes[i+1], i+1)
+	
+	#print('W[1]:',W[1],'W[2]:',W[2])
+	
+	# Lists that store the activation values
+	A_train = [None]*layers
+	A_vali = [None]*layers
+	A_test = [None]*layers
+
+	if function == 'tanh':
+		A_train[0] = tf.tanh(tf.matmul(X_train, W[0]) + B[0])
+	elif function == 'relu':
+		A_train[0] = tf.nn.relu(tf.matmul(X_train, W[0]) + B[0])
+	elif function == 'bin':
+		A_train[0] = tf.Sign(tf.matmul(X_train, W[0]) + B[0])
+	else:
+		A_train[0] = tf.sigmoid(tf.matmul(X_train, W[0]) + B[0])
+		
+	for i in range(1,layers-1):
+		if function == 'tanh':
+			A_train[i] = tf.tanh(tf.matmul(A_train[i-1], W[i]) + B[i])
+		elif function == 'relu':
+			A_train[i] = tf.nn.relu(tf.matmul(A_train[i-1], W[i]) + B[i])
+		elif function == 'bin':
+			A_train[i] = tf.Sign(tf.matmul(A_train[i-1], W[i]) + B[i])
+		else:
+			A_train[i] = tf.sigmoid(tf.matmul(A_train[i-1], W[i]) + B[i])
+		
+	if softmax:
+		# Softmax layer
+		logits = tf.matmul(A_train[layers-2], W[layers-1]) + B[layers-1]
+		A_train[layers-1] = tf.nn.softmax(logits)
+	else:
+		if function == 'tanh':
+			A_train[layers-1] = tf.tanh(tf.matmul(A_train[layers-2], W[layers-1]) + B[layers-1])
+		elif function == 'relu':
+			A_train[layers-1] = tf.nn.relu(tf.matmul(A_train[layers-2], W[layers-1]) + B[layers-1])
+		elif function == 'bin':
+			A_train[layers-1] = tf.Sign(tf.matmul(A_train[layers-2], W[layers-1]) + B[layers-1])
+		else:
+			A_train[layers-1] = tf.sigmoid(tf.matmul(A_train[layers-2], W[layers-1]) + B[layers-1])
+
+	Hypothesis_train = A_train[layers-1]
+
+	# Add ops to save and restore all the variables.
+	saver = tf.compat.v1.train.Saver()
+	sess = tf.compat.v1.Session()
+	#writer = tf.train.SummaryWriter("./logs/nn_logs", sess.graph)
+	
+	# Restore trained network
+	saver.restore(sess, 'models/'+model_name+'.ckpt')
+	print("Model " + model_name + " restored")
+
+	t_start = time.clock()
+	
+	h_train = sess.run(Hypothesis_train, feed_dict={X_train: x_train})
+	acc = accuracy(x_train, y_train, h_train)
+	print('TRAIN ACCURACY', acc)
+	
+	activation_values_train = [None]*layers
+	activation_values_vali = [None]*layers
+	activation_values_test = [None]*layers
+	
+	weights = [None]*layers
+	bias = [None]*layers
+	
+	for j in range(layers-1):
+		activation_values_train[j] = sess.run(A_train[j], feed_dict={X_train: x_train})
+		weights[j] = sess.run(W[j])
+		bias[j] = sess.run(B[j])
+	activation_values_train[layers-1] = np.asarray(sess.run(Hypothesis_train, feed_dict={X_train: x_train}))
+	weights[layers-1] = sess.run(W[layers-1])
+	bias[layers-1] = sess.run(B[layers-1])
+
+	t_end = time.clock()
+	passed_time = 'Passed time: ' + str(t_end - t_start)
+	print(passed_time)
+	
+	tf.compat.v1.reset_default_graph()
+
+	return activation_values_train[layers-1], activation_values_vali, activation_values_test, weights, bias, acc
 	#return accuracy(x_test, y_test, h_test)
 
 def weight_sparseness_pruning(data, model_name, new_model_name, hidden_nodes, iterations, function = 'tanh', softmax = True, accuracy_decrease = 0.01, indexes = [], to_prune=[], together = 1, batch_size = 0, max_non_improvements=2, max_runs=5):

@@ -16,15 +16,15 @@ import matplotlib.pyplot as plt
 #import weightExtraction as we
 
 
-dataset_name = 'Q13_500'
+dataset_name = 'Q13_2000'
 split_name = '70b'
-nr='705'
+nr='701'
 objname='BNN'
-binary=True
+binary=False
 full_name = dataset_name +'_'+split_name
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,tanh,Q13_500,701NN'
-activations_name='nn,4,3,2hidden,tanh,Q13_500,705'
+model_name = 'nn,4,3,2hidden,tanh,Q13_2000,701NN'
+activations_name='nn,4,3,2hidden,tanh,Q13_2000,701'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -168,7 +168,7 @@ def extract_model(dataset_name, split_name, activations_name, hidden_nodes,
 
 	# Get activation values and parameters
 	print('execute network')
-	#act_train, act_vali, act_test, weights, _, _ = dnnt.execute_network(data, model_name, hidden_nodes, function=function, softmax=softmax)
+	act_train, act_vali, act_test, weights, _, _ = dnnt.execute_network(data, model_name, hidden_nodes, function=function, softmax=softmax)
 
 	#print("activation_test:",act_test)
 	#print("activation_train:",act_train)
@@ -409,10 +409,10 @@ def plotAllInputs(dataset_name, hidden_nodes):
 
 #set_cv_folds(dataset_name, 3)
 
-#prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-#	init_iterations=6000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
+	init_iterations=3000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
+#extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

@@ -1,2 +1,2 @@
-model_checkpoint_path: "nn,4,3,2hidden,tanh,Q13_500,705NNBNN.ckpt"
-all_model_checkpoint_paths: "nn,4,3,2hidden,tanh,Q13_500,705NNBNN.ckpt"
+model_checkpoint_path: "nn,4,3,2hidden,tanh,Q13_2000,701NNBNN.ckpt"
+all_model_checkpoint_paths: "nn,4,3,2hidden,tanh,Q13_2000,701NNBNN.ckpt"

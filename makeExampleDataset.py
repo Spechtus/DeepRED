@@ -2,10 +2,10 @@ import random
 import numpy as np
 import csv
 
-inst = 500
+inst = 2000
 inputs = 2
 outputs = 1
-fileName='Q13_500'
+fileName='Q13_2000'
 
 data = [0] * inst
 for  i in range(inst):

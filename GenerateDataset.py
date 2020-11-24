@@ -312,7 +312,7 @@ if __name__ == '__main__':
     plt.xlim(0,10)
     plt.ylim(0,10)
     plt.tight_layout()
-    if False:
+    if True:
         plt.show()
     else:
         outFile=os.path.basename(filename).replace('.csv',"_rules-%d.pdf"%numRules)

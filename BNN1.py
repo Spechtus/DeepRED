@@ -10,7 +10,7 @@ tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 model_name='nn,4,3,2hidden,tanh,Q13_2000,701NN'
-data_name='nn,4,3,2hidden,tanh,Q13_500,705'
+data_name='nn,4,3,2hidden,tanh,Q13_2000,701'
 
 
 print("modelname= ", model_name)

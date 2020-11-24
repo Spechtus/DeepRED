@@ -11,22 +11,22 @@ import evaluation_formulas as ef
 import deep_nn_train as dnnt
 import BNNloader as bl
 
-dataset_name= 'Q13_500'
+dataset_name= 'Q13_2000'
 split_name= '70b701'
-model_name= 'nn,4,3,2hidden,tanh,Q13_500,705NN'
-BNNmodel_name = 'nn,4,3,2hidden,tanh,Q13_500,705NNBNN'
+model_name= 'nn,4,3,2hidden,tanh,Q13_2000,702NN'
+BNNmodel_name = 'nn,4,3,2hidden,tanh,Q13_2000,701NNBNN'
 
 hidden_nodes=[4,3,2]
 
-ruleBiggerX = 0.036617722			
-ruleSmallerX = -0.17567598
-ruleBiggerY = 0.002248
-ruleSmallerY = -0.067607
+ruleBiggerX = 0.06750518574399			
+ruleSmallerX = 0.06750518574399
+ruleBiggerY = -0.18192100880029
+ruleSmallerY = 0.0571396272735
 
-BNNruleBiggerX = -0.1537325547			
-BNNruleSmallerX = -0.1756759803
-BNNruleBiggerY = -0.0676073253
-BNNruleSmallerY = -0.1608126439
+BNNruleBiggerX = -0.0312995708362			
+BNNruleSmallerX = -0.02206609278794
+BNNruleBiggerY = 0.20040251078254
+BNNruleSmallerY = -0.06790830722725
 
 #the cut-off boundaries
 min_x=-1
@@ -68,7 +68,7 @@ def applyBinaryNet(x,y,model_name):
         c += 1
     return zz 
 
-def applyRules(x,y,model_name,ax, ay,bx,by):
+def applyRules(x,y,model_name,ax, bx,ay,by):
     zz=np.arange(len(x[0])*len(x[0])).reshape(len(x[0]),len(x[0]))
     for i in range(len(x)):
         for j in range(len(x[0])):
@@ -77,7 +77,7 @@ def applyRules(x,y,model_name,ax, ay,bx,by):
             else: zz[i,j] = 0
     return zz
 
-def applyBinaryRules(x,y,model_name,ax, ay,bx,by):
+def applyBinaryRules(x,y,model_name,ax, bx,ay,by):
     zz=np.arange(len(x[0])*len(x[0])).reshape(len(x[0]),len(x[0]))
     for i in range(len(x)):
         for j in range(len(x[0])):
@@ -133,7 +133,7 @@ ax1.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5
 grid = np.linspace(min_x, max_x, resolution_grid)
 xx,yy = np.meshgrid(grid,grid)
 
-zz= applyRules(xx,yy,model_name,ruleBiggerX,ruleBiggerY,ruleSmallerX,ruleSmallerY)
+zz= applyRules(xx,yy,model_name,ruleBiggerX,ruleSmallerX,ruleBiggerY,ruleSmallerY)
 
 #now, plot the rules
 print(xx.shape)
@@ -178,7 +178,7 @@ ax2.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5
 grid = np.linspace(min_x, max_x, resolution_grid)
 xx,yy = np.meshgrid(grid,grid)
 
-zz= applyBinaryRules(xx,yy,model_name,BNNruleBiggerX,BNNruleBiggerY,BNNruleSmallerX,BNNruleSmallerY)
+zz= applyBinaryRules(xx,yy,model_name,BNNruleBiggerX,BNNruleSmallerX,BNNruleBiggerY,BNNruleSmallerY)
 
 #now, plot the rules
 print(xx.shape)

@@ -152,7 +152,7 @@ def train_network(data, model_name, hidden_nodes, iterations, function ='tanh', 
 	Y_test = tf.compat.v1.placeholder(tf.float32, shape=[len(x_test),output_size])
 
 	keep_prob = tf.compat.v1.placeholder(tf.float32)
-	rate = 0.8 # dropout rate
+	rate = 0.9 # dropout rate
 
 	# Initial weights and bias are set
 	W = [None]*layers

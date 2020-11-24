@@ -19,11 +19,11 @@ import matplotlib.pyplot as plt
 dataset_name = 'Q13_2000'
 split_name = '70b'
 nr='701'
-objname='BNN'
+objname='NN'
 binary=False
 full_name = dataset_name +'_'+split_name
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,tanh,Q13_2000,701NN'
+model_name = 'nn,4,3,2hidden,tanh,Q13_2000,702NN'
 activations_name='nn,4,3,2hidden,tanh,Q13_2000,701'
 
 # Determine one or more splits of train and test data. Note that
@@ -200,7 +200,7 @@ def extract_model(dataset_name, split_name, activations_name, hidden_nodes,
 	print('execute network finished')
 	# Determine what neurons are relevant
 	print('relevant neurons dict')
-	#rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
+	rel_neuron_dict = dti.relevant_neurons( weights, hidden_nodes, data.input_lenght, output_len=data.output_neurons, binaryExtraction=binary)
 	rel_neuron_dict = {}
 	print(rel_neuron_dict)
 	#print(rel_neuron_dict)
@@ -410,7 +410,7 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #set_cv_folds(dataset_name, 3)
 
 prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-	init_iterations=3000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+	init_iterations=3500, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
 #extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
 

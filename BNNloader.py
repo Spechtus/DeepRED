@@ -237,6 +237,6 @@ def execute_BNN_plot(x,y,model_name):
     print("Verification Trainaccuracy:",accuracy_new)
 
     #print(len(activation_values_train))
-    print(activation_values_train[0])
+    #print(activation_values_train[0])
     return activation_values_train[layers-1]
 

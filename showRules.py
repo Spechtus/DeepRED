@@ -1,7 +1,7 @@
 import pickle
 
-dataset_name = 'Q1_500'
-split_name = '70b70'
+dataset_name = 'Q13_2000'
+split_name = '70b701NN'
 
 name = dataset_name + '_' + split_name
 
@@ -105,10 +105,16 @@ def extractRuleFinishBnn(item, c):
         i += 1
     print(string+')')
 
-for i in range(1,11):
-    print(i)
-    showRule(name+str(i)+'NN')
-    print('')
-    print('BNN intermediate rules:')
-    print('')
-    showBNN(name+str(i)+'NN')
+#for i in range(1,11):
+#    print(i)
+#    showRule(name+str(i)+'NN')
+#    print('')
+#    print('BNN intermediate rules:')
+#    print('')
+#    showBNN(name+str(i)+'NN')
+
+showRule(name)
+print('')
+print('BNN intermediate rules:')
+print('')
+showBNN(name)

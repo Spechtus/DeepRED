@@ -13,16 +13,16 @@ import BNNloader as bl
 
 dataset_name= 'Q1_500'
 split_name= '70b701'
-model_name= 'nn,4,3,2hidden,tanh,Q1_500,703NN'
-BNNmodel_name = 'nn,4,3,2hidden,tanh,Q1_500,703BNN'
+model_name= 'nn,4,3,2hidden,tanh,Q1_500,705NN'
+BNNmodel_name = 'nn,4,3,2hidden,tanh,Q1_500,705BNN'
 
 hidden_nodes=[4,3,2]
 
-ruleX = 0.0970243139
-ruleY = -0.0216625704
+ruleX = 0.1262491309
+ruleY = -0.0276950941
 
-BNNruleX = 0.1552154752
-BNNruleY = 0.1146480003
+BNNruleX = 0.1262491309
+BNNruleY = -0.0226666753
 
 #the cut-off boundaries
 min_x=-1
@@ -37,8 +37,6 @@ data = DataSet(dataset_name, hidden_nodes)
 train, test = lr.load_indexes(dataset_name, split_name)
 vali = lr.load_vali_indexes(dataset_name, split_name)
 data.set_split(train, vali, test)
-
-
 
 def applyNet(x,y,model_name):
     act_train, _, _, _, _, _ = dnnt.execute_network_plot(x, y, model_name, hidden_nodes)

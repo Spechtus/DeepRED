@@ -5,7 +5,7 @@ import deep_nn_keep_training_polarize as ktp
 import deep_nn_execute_stored as dnnes
 import evaluation_formulas as ef
 from obj_data_set import DataSet
-import decision_tree_induction as dti
+import decision_tree_induction3 as dti
 import printer
 import replacement as r
 import time
@@ -18,8 +18,9 @@ import matplotlib.pyplot as plt
 
 dataset_name = 'tic-tac-toeBinary'
 split_name = '70b'
+objname='NNtime11'
 
-binary=True
+binary=False
 
 full_name = dataset_name +'_'+split_name
 
@@ -118,7 +119,7 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 # Extract the rule set model
 
 def extract_model(dataset_name, split_name, model_name, hidden_nodes, 
-	target_class_index, function='tanh', softmax=True, class_dominance=98, 
+	target_class_index, function='tanh', softmax=True, class_dominance=96, 
 	min_set_size=1, dis_config=0, rft_pruning_config=2, rep_pruning_config=2, 
 	print_excel_results=False): 
 	'''
@@ -164,7 +165,7 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 
 	# Get activation values and parameters
 	print('execute network')
-	#act_train, act_vali, act_test, weights, _, _ = dnnt.execute_network(data, model_name, hidden_nodes, function=function, softmax=softmax)
+	act_train, act_vali, act_test, weights, _, _ = dnnt.execute_network(data, model_name, hidden_nodes, function=function, softmax=softmax)
 
 	#print("activation_test:",act_test)
 	#print("activation_train:",act_train)
@@ -175,7 +176,7 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 		#we.transformActivations(act_train,act_test,len(train),len(test),hidden_nodes,data.output_neurons)
 		#we.saveWA(weights,act_train,act_test,full_name)
 		print("get BNN Activations and Weights")
-		act_train, act_vali, act_test, weights = lr.load_bin_act_and_weights(model_name)
+		act_train, act_vali, act_test = lr.load_bin_act_and_weights(model_name)
 	
 	#print("activation_test:",act_test)
 	#print("activation_vali:",act_vali)
@@ -205,34 +206,34 @@ def extract_model(dataset_name, split_name, model_name, hidden_nodes,
 	# Extract a dictionary which links conditions of layer l with a dnf 
 	# using conditions of layer l-1 (and saves it to the 'obj' folder)
 	print('BNN extraction')
-	time_start = time.clock()
+	time_start = time.process_time()
 	
-	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name + '4.pkl'):
-		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name+'4')
+	if os.path.exists('obj/BNN_' + dataset_name + '_' + split_name + objname+'.pkl'):
+		BNN, data.example_cond_dict, data.dict_indexes = lr.load_BNN_ecd_indexes(dataset_name + '_' + split_name+objname)
 		print('\nLoaded BNN, example-condition-dict, indexes')
 	else:
 		t = time.time()
 		BNN = dti.build_BNN(data, output_condition, cd = class_dominance, mss = min_size, relevant_neuron_dictionary = rel_neuron_dict, with_data = rft_pruning_config, discretization = dis_config, cluster_means = None)
-		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name+'4')
+		lr.save_BNN_ecd_indexes(BNN, data.example_cond_dict, data.dict_indexes, dataset_name + '_' + split_name+objname)
 		print('\nBuilt BNN')
 		print('Time BNN: ', time.time() - t)
 		#print(BNN)
 	
 	print('BNN extraction finished')
-	time_end_extraction = time.clock()
+	time_end_extraction = time.process_time()
 
 	# Extract an expression of an output condition w.r.t the inputs
-	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + '4.pkl'):
-		bio = lr.load_bio(dataset_name + '_' + split_name+'4')
+	if os.path.exists('obj/bio_' + dataset_name + '_' + split_name + objname+'.pkl'):
+		bio = lr.load_bio(dataset_name + '_' + split_name+objname)
 		print('\nLoaded bio')
 	else:
 		t= time.time()
 		bio = r.get_bio(BNN, output_condition, data.example_cond_dict, data.dict_indexes, with_data = rep_pruning_config, data=data)
-		lr.save_bio(bio, dataset_name + '_' + split_name+'4')
+		lr.save_bio(bio, dataset_name + '_' + split_name+objname)
 		print('\nBuilt bio')
 		print('Time bio: ', time.time() - t)
 
-	time_end = time.clock()
+	time_end = time.process_time()
 
 	print("class dominance:", class_dominance)
 	print("minimim dataset size:", min_set_size)
@@ -397,9 +398,9 @@ def plotAllInputs(dataset_name, hidden_nodes):
 #set_cv_folds(dataset_name, 3)
 
 #prepare_network(dataset_name, split_name, model_name, hidden_nodes,
-#	init_iterations=5000, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#	init_iterations=5000, wsp_iterations=2000, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-extract_model(dataset_name, split_name, model_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name, model_name, hidden_nodes, 0, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

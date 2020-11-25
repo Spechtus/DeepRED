@@ -5,7 +5,7 @@ import deep_nn_keep_training_polarize as ktp
 import deep_nn_execute_stored as dnnes
 import evaluation_formulas as ef
 from obj_data_set import DataSet
-import decision_tree_induction4 as dti
+import decision_tree_induction3 as dti
 import printer
 import replacement as r
 import time
@@ -16,15 +16,15 @@ import matplotlib.pyplot as plt
 #import weightExtraction as we
 
 
-dataset_name = 'Q13_2000'
+dataset_name = 'Q1_500'
 split_name = '70b'
 nr='701'
-objname='NN'
+objname='9polNN'
 binary=False
 full_name = dataset_name +'_'+split_name
 hidden_nodes= [4,3,2]
-model_name = 'nn,4,3,2hidden,tanh,Q13_2000,702NN'
-activations_name='nn,4,3,2hidden,tanh,Q13_2000,701'
+model_name = 'nn,4,3,2hidden,tanh,Q1_500,701NN'
+activations_name='nn,4,3,2hidden,tanh,Q1_500,701'
 
 # Determine one or more splits of train and test data. Note that
 # different splits can be used to train the networks and extract the rule 
@@ -108,7 +108,7 @@ def prepare_network(dataset_name, split_name, model_name, hidden_nodes,
 	data.set_split(train, vali, test) #data.set_split(train, test, test)
 	dnnt.train_network(data, model_name, hidden_nodes, iterations=init_iterations, function=function, softmax=softmax)
 	
-	#ktp.retrain_network(data, model_name, model_name+'pol', hidden_nodes, int(init_iterations/10))
+	ktp.retrain_network(data, model_name, model_name+'pol', hidden_nodes, int(init_iterations/10))
 
 	#dnnt.weight_sparseness_pruning(data, model_name, model_name, hidden_nodes, iterations=wsp_iterations, function=function, softmax=softmax, accuracy_decrease=wsp_accuracy_decrease)
 
@@ -172,7 +172,7 @@ def extract_model(dataset_name, split_name, activations_name, hidden_nodes,
 
 	#print("activation_test:",act_test)
 	#print("activation_train:",act_train)
-	#print("weights:",weights)
+	print("weights:",weights)
 
 	if binary:
 		#we.transformWeights(weights,hidden_nodes,data.input_lenght)
@@ -409,10 +409,10 @@ def plotAllInputs(dataset_name, hidden_nodes):
 
 #set_cv_folds(dataset_name, 3)
 
-prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
-	init_iterations=3500, wsp_iterations=100, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
+#prepare_network(dataset_name, split_name+nr, model_name, hidden_nodes,
+#	init_iterations=5000, wsp_iterations=2000, wsp_accuracy_decrease=0.02, rxren_accuracy_decrease=5, function='tanh', softmax=True)
 
-#extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
+extract_model(dataset_name, split_name+nr, activations_name, hidden_nodes, 1, function='tanh')
 
 #plotTrainInputs(dataset_name,hidden_nodes)
 #plotAllInputs(dataset_name,hidden_nodes)

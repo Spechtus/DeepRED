@@ -6,7 +6,7 @@ import numpy as np
 import pickle
 
 tf.compat.v1.disable_eager_execution()
-model_name='nn,4,3,2hidden,tanh,Q1_500,70'
+model_name='nn,4,3,2hidden,tanh,Q1_500,701'
 
 def save_bin_weights(weights,name):
     with open('BNN/'+name+'bin_weights.pkl', 'wb') as f:

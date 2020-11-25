@@ -1,7 +1,7 @@
 import pickle
 
-dataset_name = 'Q13_2000'
-split_name = '70b701NN'
+dataset_name = 'Q1_500'
+split_name = '70b705'
 
 name = dataset_name + '_' + split_name
 

@@ -13,16 +13,19 @@ import BNNloader as bl
 
 dataset_name= 'Q1_500'
 split_name= '70b701'
-model_name= 'nn,4,3,2hidden,tanh,Q1_500,705NN'
-BNNmodel_name = 'nn,4,3,2hidden,tanh,Q1_500,705BNN'
+model_name= 'nn,4,3,2hidden,tanh,Q1_500,706NN'
+BNNmodel_name = 'nn,4,3,2hidden,tanh,Q1_500,706BNN'
 
 hidden_nodes=[4,3,2]
 
-ruleX = 0.1262491309
-ruleY = -0.0276950941
+ruleX = 0.0970243136
+ruleY = -0.0216625704
 
-BNNruleX = 0.1262491309
-BNNruleY = -0.0226666753
+polruleX = -0.08464957370707
+polruleY = -0.08809244706596
+
+BNNruleX = 0.1552154752
+BNNruleY = 0.11464800003
 
 #the cut-off boundaries
 min_x=-1
@@ -92,6 +95,30 @@ def applyFunction(x,y,model_name):
 fig, (ax1, ax2) = plt.subplots(1,2)
 
 ##################################################Plot NN#########################################################
+#    
+#   b 	blue            o   Punkt
+#   c 	cyan            s   REchteck
+#   g 	green           D   Diamant
+#   m 	magenta         ^   Dreieck
+#   r 	red             x   x
+#   y 	yellow          +   +
+#   k 	black
+#   w 	white
+#
+
+#training data
+x, y = data.get_train_x_y()
+x_train, y_train = [],[]
+for i in range(len(x)):
+	x_train.append(x[i][0])
+	y_train.append(x[i][1])
+
+#plot training data; pos = red; neg = blue
+for i in range(len(x_train)):
+	if x_train[i] > 0 and y_train[i] > 0:
+		ax1.plot(x_train[i],y_train[i],'go')
+	else: 
+		ax1.plot(x_train[i],y_train[i],'ko')
 
 #plotting 
 grid = np.linspace(min_x, max_x, 1000)
@@ -120,7 +147,26 @@ xx= xx.reshape(resolution_grid,resolution_grid)
 yy= yy.reshape(resolution_grid,resolution_grid)
 zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax1.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax1.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=2.5)
+
+#generate grid data set for pol
+grid = np.linspace(min_x, max_x, resolution_grid)
+xx,yy = np.meshgrid(grid,grid)
+
+xx= xx.reshape(-1)
+yy= yy.reshape(-1)
+
+#predictions polNet(gelb)
+zz= applyNet(xx,yy,model_name+'pol')
+
+#now, plot the predictions
+print(xx.shape)
+
+xx= xx.reshape(resolution_grid,resolution_grid)
+yy= yy.reshape(resolution_grid,resolution_grid)
+zz= zz.reshape(resolution_grid,resolution_grid)
+
+ax1.contour(xx,yy,zz,colors='yellow',levels=[0,1],linestyles='solid',linewidths=2.5)
 
 
 #predictions Rules(Blau)
@@ -136,9 +182,39 @@ print(xx.shape)
 #yy= yy.reshape(resolution_grid,resolution_grid)
 #zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax1.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax1.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=2.5)
+
+#predictions Rules(orange)
+grid = np.linspace(min_x, max_x, resolution_grid)
+xx,yy = np.meshgrid(grid,grid)
+
+zz= applyRules(xx,yy,model_name,polruleX,polruleY)
+
+#now, plot the rules
+print(xx.shape)
+
+#xx= xx.reshape(resolution_grid,resolution_grid)
+#yy= yy.reshape(resolution_grid,resolution_grid)
+#zz= zz.reshape(resolution_grid,resolution_grid)
+
+ax1.contour(xx,yy,zz,colors='orange',levels=[0,1],linestyles='solid',linewidths=2.5)
 
 ################################################## Plot BNN #########################################################
+
+#training data
+x, y = data.get_train_x_y()
+x_train, y_train = [],[]
+for i in range(len(x)):
+	x_train.append(x[i][0])
+	y_train.append(x[i][1])
+
+#plot training data; pos = red; neg = blue
+for i in range(len(x_train)):
+	if x_train[i] > 0 and y_train[i] > 0:
+		ax2.plot(x_train[i],y_train[i],'go')
+	else: 
+		ax2.plot(x_train[i],y_train[i],'ko')
+
 #plotting 
 grid = np.linspace(min_x, max_x, 1000)
 xx,yy = np.meshgrid(grid,grid)
@@ -166,7 +242,7 @@ xx= xx.reshape(resolution_grid,resolution_grid)
 yy= yy.reshape(resolution_grid,resolution_grid)
 zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax2.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax2.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=2.5)
 
 #predictions Rules(Blau)
 grid = np.linspace(min_x, max_x, resolution_grid)
@@ -181,7 +257,7 @@ print(xx.shape)
 #yy= yy.reshape(resolution_grid,resolution_grid)
 #zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax2.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax2.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=2.5)
 
 ax1.set_title("NN")
 ax2.set_title("BNN")

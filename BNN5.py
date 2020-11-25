@@ -9,7 +9,7 @@ import time
 tf.compat.v1.disable_eager_execution()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-model_name='nn,4,3,2hidden,tanh,Q1_500,705'
+model_name='nn,30,16,2hidden,tanh,agaricus-lepiotaBinary,70'
 print("modelname= ", model_name)
 
 # A function which shuffles a dataset
@@ -126,7 +126,7 @@ x_vali = load_x_vali(model_name)
 y_vali = load_y_vali(model_name)
 
 input_size = len(x_train[0])
-hidden_layer=[4,3,2]
+hidden_layer=[30,16,2]
 output_size = 2
 layers = len(hidden_layer)+1
 

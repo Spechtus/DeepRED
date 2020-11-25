@@ -13,7 +13,7 @@ import BNNloader as bl
 
 dataset_name= 'Q13_2000'
 split_name= '70b701'
-model_name= 'nn,4,3,2hidden,tanh,Q13_2000,702NN'
+model_name= 'nn,4,3,2hidden,tanh,Q13_2000,701NN'
 BNNmodel_name = 'nn,4,3,2hidden,tanh,Q13_2000,701NNBNN'
 
 hidden_nodes=[4,3,2]
@@ -98,6 +98,34 @@ def applyFunction(x,y,model_name):
 fig, (ax1, ax2) = plt.subplots(1,2)
 
 ##################################################Plot NN#########################################################
+#    
+#   b 	blue            o   Punkt
+#   c 	cyan            s   REchteck
+#   g 	green           D   Diamant
+#   m 	magenta         ^   Dreieck
+#   r 	red             x   x
+#   y 	yellow          +   +
+#   k 	black
+#   w 	white
+#
+
+#training data
+x, y = data.get_train_x_y()
+x_train, y_train = [],[]
+for i in range(len(x)):
+	x_train.append(x[i][0])
+	y_train.append(x[i][1])
+
+#plot training data; pos = red; neg = blue
+for i in range(len(x_train)):
+	if x_train[i] > 0 and y_train[i] > 0:
+		ax1.plot(x_train[i],y_train[i],'go')
+	elif x_train[i] < 0 and y_train[i] < 0:
+		ax1.plot(x_train[i],y_train[i],'go')
+	else: 
+		ax1.plot(x_train[i],y_train[i],'ko')
+
+
 
 #plotting 
 grid = np.linspace(min_x, max_x, 1000)
@@ -126,7 +154,7 @@ xx= xx.reshape(resolution_grid,resolution_grid)
 yy= yy.reshape(resolution_grid,resolution_grid)
 zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax1.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax1.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=3)
 
 
 #predictions Rules(Blau)
@@ -142,9 +170,25 @@ print(xx.shape)
 #yy= yy.reshape(resolution_grid,resolution_grid)
 #zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax1.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax1.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=3)
 
 ################################################## Plot BNN #########################################################
+#training data
+x, y = data.get_train_x_y()
+x_train, y_train = [],[]
+for i in range(len(x)):
+	x_train.append(x[i][0])
+	y_train.append(x[i][1])
+
+#plot training data; pos = red; neg = blue
+for i in range(len(x_train)):
+	if x_train[i] > 0 and y_train[i] > 0:
+		ax2.plot(x_train[i],y_train[i],'go')
+	elif x_train[i] < 0 and y_train[i] < 0:
+		ax2.plot(x_train[i],y_train[i],'go')
+	else: 
+		ax2.plot(x_train[i],y_train[i],'ko')
+
 #plotting 
 grid = np.linspace(min_x, max_x, 1000)
 xx,yy = np.meshgrid(grid,grid)
@@ -172,7 +216,7 @@ xx= xx.reshape(resolution_grid,resolution_grid)
 yy= yy.reshape(resolution_grid,resolution_grid)
 zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax2.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax2.contour(xx,yy,zz,colors='red',levels=[0,1],linestyles='solid',linewidths=3)
 
 #predictions Rules(Blau)
 grid = np.linspace(min_x, max_x, resolution_grid)
@@ -187,7 +231,7 @@ print(xx.shape)
 #yy= yy.reshape(resolution_grid,resolution_grid)
 #zz= zz.reshape(resolution_grid,resolution_grid)
 
-ax2.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=1.5)
+ax2.contour(xx,yy,zz,colors='blue',levels=[0,1],linestyles='solid',linewidths=3)
 
 ax1.set_title("NN")
 ax2.set_title("BNN")
